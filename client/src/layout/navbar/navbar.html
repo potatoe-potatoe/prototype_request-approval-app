@@ -2,7 +2,39 @@
   <div class="flex-1">
     <span class="text-xl font-bold">Approval Checklist</span>
   </div>
-  <div class="flex-none">
+  <div class="flex-none flex items-center gap-3">
+    <div class="dropdown dropdown-end group">
+      <div tabindex="0" role="button" class="btn btn-ghost capitalize gap-2">
+        <span class="w-4 h-4 rounded-full overflow-hidden flex shrink-0 border border-base-content/20" [attr.data-theme]="themeService.theme()">
+          <span class="w-1/2 h-full bg-base-100"></span>
+          <span class="w-1/2 h-full bg-primary"></span>
+        </span>
+        {{ themeService.theme() }}
+        <!-- chevron-down heroicon (outline) -->
+        <svg class="w-4 h-4 shrink-0 transition-transform group-focus-within:rotate-180" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+        </svg>
+      </div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-10 w-36 p-2 shadow">
+        @for (theme of themes; track theme) {
+          <li>
+            <a class="capitalize" (click)="themeService.setTheme(theme)">
+              <span class="w-4 h-4 rounded-full overflow-hidden flex shrink-0 border border-base-content/20" [attr.data-theme]="theme">
+                <span class="w-1/2 h-full bg-base-100"></span>
+                <span class="w-1/2 h-full bg-primary"></span>
+              </span>
+              {{ theme }}
+              @if (themeService.theme() === theme) {
+                <!-- check heroicon (outline) -->
+                <svg class="w-4 h-4 ml-auto shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4.5 12.75l6 6 9-13.5"/>
+                </svg>
+              }
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
     <div class="avatar avatar-placeholder">
       <div class="bg-neutral text-neutral-content w-10 rounded-full">
         <span class="text-sm">U</span>
