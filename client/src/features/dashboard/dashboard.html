@@ -1,3 +1,63 @@
-<div class="p-6">
-  dashboard works!
+<div class="grid grid-rows-[2fr_1fr_auto] gap-4 h-full p-6">
+
+  <!-- Welcome Banner -->
+  <div class="card bg-primary text-primary-content shadow">
+    <div class="card-body justify-end">
+      <p class="text-primary-content/70 text-sm font-medium uppercase tracking-widest">Welcome back</p>
+      <h1 class="card-title text-4xl font-bold">Hello, User!</h1>
+      <p class="text-primary-content/70">Here's an overview of your requests.</p>
+    </div>
+  </div>
+
+  <!-- Metrics Row -->
+  <div class="grid grid-cols-5 gap-4">
+
+    <div class="card bg-base-100 shadow border-l-4 border-info">
+      <div class="card-body">
+        <p class="text-5xl font-bold text-info">{{ metrics()['inDraft'] }}</p>
+        <p class="text-sm text-base-content/60 font-medium">In Draft</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow border-l-4 border-warning">
+      <div class="card-body">
+        <p class="text-5xl font-bold text-warning">{{ metrics()['underReview'] }}</p>
+        <p class="text-sm text-base-content/60 font-medium">Under Review</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow border-l-4 border-orange-400">
+      <div class="card-body">
+        <p class="text-5xl font-bold text-orange-400">{{ metrics()['returned'] }}</p>
+        <p class="text-sm text-base-content/60 font-medium">Returned</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow border-l-4 border-error">
+      <div class="card-body">
+        <p class="text-5xl font-bold text-error">{{ metrics()['rejected'] }}</p>
+        <p class="text-sm text-base-content/60 font-medium">Rejected</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow border-l-4 border-success">
+      <div class="card-body">
+        <p class="text-5xl font-bold text-success">{{ metrics()['completed'] }}</p>
+        <p class="text-sm text-base-content/60 font-medium">Completed</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Create New Request -->
+  <button class="card bg-base-100 border-2 border-dashed border-base-300 hover:border-primary hover:bg-base-200 transition-colors cursor-pointer w-full shadow-none" (click)="createRequest()">
+    <div class="card-body flex-row items-center justify-center gap-3">
+      <!-- plus heroicon (outline) -->
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 4.5v15m7.5-7.5h-15"/>
+      </svg>
+      <span class="font-semibold text-base">Create New Request</span>
+    </div>
+  </button>
+
 </div>
