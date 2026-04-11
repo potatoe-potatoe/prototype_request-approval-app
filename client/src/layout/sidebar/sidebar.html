@@ -1,0 +1,39 @@
+<aside
+  class="flex flex-col bg-base-200 h-full transition-all duration-300 overflow-hidden"
+  [class.w-64]="!collapsed()"
+  [class.w-14]="collapsed()"
+>
+  <ul class="menu p-2 gap-1 flex-1 w-full">
+    <li>
+      <a routerLink="/dashboard" routerLinkActive="active" class="flex items-center gap-3">
+        <!-- squares-2x2 heroicon (outline) -->
+        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3.75 6C3.75 4.75736 4.75736 3.75 6 3.75H8.25C9.49264 3.75 10.5 4.75736 10.5 6V8.25C10.5 9.49264 9.49264 10.5 8.25 10.5H6C4.75736 10.5 3.75 9.49264 3.75 8.25V6Z"/>
+          <path d="M3.75 15.75C3.75 14.5074 4.75736 13.5 6 13.5H8.25C9.49264 13.5 10.5 14.5074 10.5 15.75V18C10.5 19.2426 9.49264 20.25 8.25 20.25H6C4.75736 20.25 3.75 19.2426 3.75 18V15.75Z"/>
+          <path d="M13.5 6C13.5 4.75736 14.5074 3.75 15.75 3.75H18C19.2426 3.75 20.25 4.75736 20.25 6V8.25C20.25 9.49264 19.2426 10.5 18 10.5H15.75C14.5074 10.5 13.5 9.49264 13.5 8.25V6Z"/>
+          <path d="M13.5 15.75C13.5 14.5074 14.5074 13.5 15.75 13.5H18C19.2426 13.5 20.25 14.5074 20.25 15.75V18C20.25 19.2426 19.2426 20.25 18 20.25H15.75C14.5074 20.25 13.5 19.2426 13.5 18V15.75Z"/>
+        </svg>
+        @if (!collapsed()) {
+          <span>Dashboard</span>
+        }
+      </a>
+    </li>
+  </ul>
+
+  <div class="border-t border-base-300">
+    <button class="btn btn-ghost rounded-none w-full flex items-center gap-2 py-3" (click)="toggle()">
+      @if (collapsed()) {
+        <!-- chevron-double-right heroicon (outline) -->
+        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5.25 4.5L12.75 12L5.25 19.5M11.25 4.5L18.75 12L11.25 19.5"/>
+        </svg>
+      } @else {
+        <!-- chevron-double-left heroicon (outline) -->
+        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18.75 4.5L11.25 12L18.75 19.5M12.75 4.5L5.25 12L12.75 19.5"/>
+        </svg>
+        <span>Collapse</span>
+      }
+    </button>
+  </div>
+</aside>
