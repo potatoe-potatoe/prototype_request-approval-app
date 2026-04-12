@@ -1,59 +1,20 @@
 <div class="flex flex-col gap-4 p-6 h-full">
-
-  <!-- Title Card -->
-  <div class="card bg-base-100 shadow">
-    <div class="card-body">
-      <h1 class="card-title text-2xl">My Submitted Requests</h1>
-      <p class="text-base-content/60">View all your draft requests here.</p>
-    </div>
+  <!-- Title -->
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold">My Submitted Requests</h1>
+    <p class="text-base-content/60">View all your submitted requests here, including those pending approval.</p>
   </div>
 
   <!-- Filters -->
-  <div class="card bg-base-100 shadow">
-    <div class="card-body flex-row items-center gap-3">
-      <input type="text" placeholder="Search..." class="input input-bordered flex-1" />
-      <button class="btn btn-primary">Apply</button>
-    </div>
+  <div class="flex items-center gap-3">
+    <input type="text" placeholder="Search by: Control#, Vendor, or Subject" class="input input-bordered flex-1" />
+    <button class="btn btn-primary">Apply</button>
   </div>
 
-  <!-- Table -->
-  <div class="card bg-base-100 shadow flex-1 overflow-x-auto">
-    <table class="table h-full">
-      <thead>
-        <tr>
-          @for (column of columns; track $index) {
-            <th>{{ column }}</th>
-          }
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        @if (requests().length === 0) {
-          <tr>
-            <td colspan="7" class="text-center text-base-content/40 py-12">No records found.</td>
-          </tr>
-        } @else {
-          @for (request of requests(); track request.controlNo) {
-            <tr class="hover">
-              <td>{{ request.controlNo }}</td>
-              <td>{{ request.vendor }}</td>
-              <td>{{ request.subject }}</td>
-              <td>{{ request.currentStep }}</td>
-              <td>{{ request.createdOn }}</td>
-              <td>{{ request.lastUpdatedOn }}</td>
-              <td>
-                <button class="btn btn-ghost btn-sm btn-square">
-                  <!-- ellipsis-horizontal heroicon (outline) -->
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
-                  </svg>
-                </button>
-              </td>
-            </tr>
-          }
-        }
-      </tbody>
-    </table>
-  </div>
-
+  <app-requests-table
+    [requests]="requests()"
+    [currentPage]="paginationData().currentPage"
+    [totalPages]="paginationData().totalPages"
+    [pageSize]="paginationData().pageSize"
+    [totalItems]="paginationData().totalItems"/>
 </div>
