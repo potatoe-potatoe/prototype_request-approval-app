@@ -56,12 +56,14 @@
               <td>{{ request.createdOn }}</td>
               <td>{{ request.lastUpdatedOn }}</td>
               <td>
-                <button class="btn btn-ghost btn-sm btn-square">
-                  <!-- pencil-square heroicon (outline) -->
+                <div class="tooltip tooltip-left" data-tip="Open request">
+                <button class="btn btn-ghost btn-square">
+                  <!-- arrow-top-right-on-square heroicon (outline) -->
                   <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16.8617 4.48667L18.5492 2.79917C19.2814 2.06694 20.4686 2.06694 21.2008 2.79917C21.9331 3.53141 21.9331 4.71859 21.2008 5.45083L10.5822 16.0695C10.0535 16.5981 9.40144 16.9868 8.68489 17.2002L6 18L6.79978 15.3151C7.01323 14.5986 7.40185 13.9465 7.93052 13.4178L16.8617 4.48667ZM16.8617 4.48667L19.5 7.12499M18 14V18.75C18 19.9926 16.9926 21 15.75 21H5.25C4.00736 21 3 19.9926 3 18.75V8.24999C3 7.00735 4.00736 5.99999 5.25 5.99999H10"/>
+                    <path d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
                   </svg>
                 </button>
+                </div>
               </td>
             </tr>
           }
