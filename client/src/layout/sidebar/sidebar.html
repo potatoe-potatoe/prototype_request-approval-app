@@ -1,50 +1,78 @@
 <aside
-  class="flex flex-col bg-base-200 h-full transition-all duration-300 overflow-hidden"
+  class="flex flex-col bg-base-200 h-full transition-all duration-300"
   [class.w-64]="!collapsed()"
   [class.w-14]="collapsed()"
 >
-  <ul class="menu p-2 gap-1 flex-1 w-full">
-    @if (!collapsed()) {
-      @for (item of navItems; track item.label) {
-        @if (item.children) {
-          <li>
-            <details open>
-              <summary>
-                <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  @for (path of iconPaths[item.icon]; track path) {
-                    <path [attr.d]="path"/>
-                  }
-                </svg>
-                {{ item.label }}
-              </summary>
-              <ul>
-                @for (child of item.children; track child.label) {
-                  <li>
-                    <a [routerLink]="child.route" routerLinkActive="active">
-                      <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        @for (path of iconPaths[child.icon]; track path) {
-                          <path [attr.d]="path"/>
-                        }
-                      </svg>
-                      {{ child.label }}
-                    </a>
-                  </li>
-                }
-              </ul>
-            </details>
-          </li>
-        } @else {
-          <li>
-            <a [routerLink]="item.route" routerLinkActive="active">
+  <!-- Expanded: overflow-hidden clips labels during width transition -->
+  <ul class="menu p-2 gap-1 flex-1 w-full overflow-hidden" [class.hidden]="collapsed()">
+    @for (item of navItems; track item.label) {
+      @if (item.children) {
+        <li>
+          <details open>
+            <summary class="whitespace-nowrap">
               <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 @for (path of iconPaths[item.icon]; track path) {
                   <path [attr.d]="path"/>
                 }
               </svg>
               {{ item.label }}
+            </summary>
+            <ul>
+              @for (child of item.children; track child.label) {
+                <li>
+                  <a [routerLink]="child.route" routerLinkActive="active" class="whitespace-nowrap">
+                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      @for (path of iconPaths[child.icon]; track path) {
+                        <path [attr.d]="path"/>
+                      }
+                    </svg>
+                    {{ child.label }}
+                  </a>
+                </li>
+              }
+            </ul>
+          </details>
+        </li>
+      } @else {
+        <li>
+          <a [routerLink]="item.route" routerLinkActive="active" class="whitespace-nowrap">
+            <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              @for (path of iconPaths[item.icon]; track path) {
+                <path [attr.d]="path"/>
+              }
+            </svg>
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    }
+  </ul>
+
+  <!-- Collapsed: no overflow-hidden so tooltips can render outside the sidebar -->
+  <ul class="menu p-2 gap-1 flex-1 w-full" [class.hidden]="!collapsed()">
+    @for (item of navItems; track item.label) {
+      @if (item.children) {
+        @for (child of item.children; track child.label) {
+          <li class="tooltip tooltip-right" [attr.data-tip]="item.label + ' - ' + child.label">
+            <a [routerLink]="child.route" routerLinkActive="active">
+              <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                @for (path of iconPaths[child.icon]; track path) {
+                  <path [attr.d]="path"/>
+                }
+              </svg>
             </a>
           </li>
         }
+      } @else {
+        <li class="tooltip tooltip-right" [attr.data-tip]="item.label">
+          <a [routerLink]="item.route" routerLinkActive="active">
+            <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              @for (path of iconPaths[item.icon]; track path) {
+                <path [attr.d]="path"/>
+              }
+            </svg>
+          </a>
+        </li>
       }
     }
   </ul>
