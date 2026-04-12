@@ -21,16 +21,17 @@ export class Sidebar {
         { label: 'Submitted', route: '/my-requests/submitted', icon: Icon.PaperAirplane },
       ],
     },
-    {
-      label: 'My Approvals',
-      route: '/',
-      icon: Icon.ClipboardDocumentCheck,
-      children: [
-        { label: 'Upcoming', route: '/', icon: Icon.CalendarDays },
-        { label: 'Pending', route: '/', icon: Icon.Clock },
-        { label: 'Completed', route: '/', icon: Icon.CheckCircle },
-      ],
-    },
+    // TODO: Uncomment once the core pages are done
+    // {
+    //   label: 'My Approvals',
+    //   route: '/',
+    //   icon: Icon.ClipboardDocumentCheck,
+    //   children: [
+    //     { label: 'Upcoming', route: '/', icon: Icon.CalendarDays },
+    //     { label: 'Pending', route: '/', icon: Icon.Clock },
+    //     { label: 'Completed', route: '/', icon: Icon.CheckCircle },
+    //   ],
+    // },
     { label: 'All Requests', route: '/', icon: Icon.QueueList },
   ];
 
