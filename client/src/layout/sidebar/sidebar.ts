@@ -32,7 +32,7 @@ export class Sidebar {
     //     { label: 'Completed', route: '/', icon: Icon.CheckCircle },
     //   ],
     // },
-    { label: 'All Requests', route: '/', icon: Icon.QueueList },
+    { label: 'All Requests', route: '/all-requests', icon: Icon.QueueList },
   ];
 
   protected collapsed = signal(false);

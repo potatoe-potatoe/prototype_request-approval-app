@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Dashboard } from '../features/dashboard/dashboard';
 import { Drafts } from '../features/my-requests/drafts/drafts';
 import { Submitted } from '../features/my-requests/submitted/submitted';
+import { AllRequests } from '../features/all-requests/all-requests';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -13,4 +14,5 @@ export const routes: Routes = [
       { path: 'submitted', component: Submitted },
     ],
   },
+  { path: 'all-requests', component: AllRequests }
 ];

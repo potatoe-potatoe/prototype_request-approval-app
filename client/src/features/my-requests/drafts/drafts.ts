@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ApprovalRequest, RequestStatus, requestStatusList } from '../../../shared/types/request-type';
+import { ApprovalRequest } from '../../../shared/types/request-type';
 import { MyRequestsService } from '../my-requests-service';
 import { PaginationMetadata } from '../../../core/types/pagination-type';
 import { RequestsTableFilters } from "../../../shared/components/requests-table-filters/requests-table-filters";
@@ -11,9 +11,6 @@ import { RequestsTable } from "../../../shared/components/requests-table/request
   templateUrl: './drafts.html',
 })
 export class Drafts implements OnInit {
-  protected readonly statusOptions = requestStatusList.filter(
-    s => ![RequestStatus.Draft, RequestStatus.Returned].includes(s)
-  );
   protected requests = signal<ApprovalRequest[]>([]);
   protected paginationData = signal<PaginationMetadata>({} as PaginationMetadata);
 

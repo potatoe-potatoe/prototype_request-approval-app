@@ -1,0 +1,18 @@
+<div class="flex flex-col gap-4 p-6 h-full">
+  <!-- Title -->
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold">All Requests</h1>
+    <p class="text-base-content/60">View all submitted requests, including rejected and cancelled items.</p>
+  </div>
+
+  <!-- Filters -->
+  <app-requests-table-filters [statusOptions]="statusOptions"/>
+
+  <!-- COntent -->
+  <app-requests-table
+    [requests]="requests()"
+    [currentPage]="paginationData().currentPage"
+    [totalPages]="paginationData().totalPages"
+    [pageSize]="paginationData().pageSize"
+    [totalItems]="paginationData().totalItems"/>
+</div>
