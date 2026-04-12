@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { ApprovalRequest } from '../../../types/request-type';
+import { ApprovalRequest } from '../../types/request-type';
 
 @Component({
   selector: 'app-requests-table',

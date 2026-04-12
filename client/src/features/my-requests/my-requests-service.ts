@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { ApprovalRequest } from '../../types/request-type';
+import { ApprovalRequest } from '../../shared/types/request-type';
 
 @Injectable({
   providedIn: 'root',
