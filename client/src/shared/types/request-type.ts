@@ -17,3 +17,8 @@ export enum RequestStatus {
   Cancelled = 'Cancelled',
 }
 export const requestStatusList = Object.values(RequestStatus);
+
+export interface RequestFilters {
+  searchText: string;
+  statusList?: RequestStatus[];
+}
