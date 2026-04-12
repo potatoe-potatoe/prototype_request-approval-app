@@ -1,16 +1,16 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ApprovalRequest, RequestStatus, requestStatusList } from '../../../shared/types/request-type';
 import { MyRequestsService } from '../my-requests-service';
-import { RequestsTable } from '../../../shared/components/requests-table/requests-table';
-import { RequestsTableFilters } from '../../../shared/components/requests-table-filters/requests-table-filters';
 import { PaginationMetadata } from '../../../core/types/pagination-type';
+import { RequestsTableFilters } from "../../../shared/components/requests-table-filters/requests-table-filters";
+import { RequestsTable } from "../../../shared/components/requests-table/requests-table";
 
 @Component({
-  selector: 'app-submitted',
-  templateUrl: './submitted.html',
-  imports: [RequestsTable, RequestsTableFilters],
+  selector: 'app-drafts',
+  imports: [RequestsTableFilters, RequestsTable],
+  templateUrl: './drafts.html',
 })
-export class Submitted implements OnInit {
+export class Drafts implements OnInit {
   protected readonly statusOptions = requestStatusList.filter(
     s => ![RequestStatus.Draft, RequestStatus.Returned].includes(s)
   );
@@ -20,7 +20,7 @@ export class Submitted implements OnInit {
   private myRequestsService = inject(MyRequestsService);
 
   ngOnInit(): void {
-    this.myRequestsService.getSubmitted(this.statusOptions).subscribe({
+    this.myRequestsService.getDrafts().subscribe({
       next: (response) => {
         this.requests.set(response.data);
         this.paginationData.set(response.pagination);

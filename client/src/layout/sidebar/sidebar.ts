@@ -17,7 +17,7 @@ export class Sidebar {
       route: '/',
       icon: Icon.Inbox,
       children: [
-        { label: 'Drafts', route: '/', icon: Icon.PencilSquare },
+        { label: 'Drafts', route: '/my-requests/drafts', icon: Icon.PencilSquare },
         { label: 'Submitted', route: '/my-requests/submitted', icon: Icon.PaperAirplane },
       ],
     },

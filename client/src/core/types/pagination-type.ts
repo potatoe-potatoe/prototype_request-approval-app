@@ -4,3 +4,8 @@ export interface PaginationMetadata {
   pageSize: number;
   totalItems: number;
 }
+
+export interface PagedResult<T> {
+  data: T[];
+  pagination: PaginationMetadata;
+}
