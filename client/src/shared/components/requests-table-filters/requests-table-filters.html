@@ -1,28 +1,32 @@
 <div class="flex flex-col gap-2">
   <div class="flex items-center gap-3">
-    <div class="dropdown">
-      <button tabindex="0" class="btn btn-ghost border border-base-300 w-36 justify-between">
-        Status
-        @if (selectedStatuses().size > 0) {
-          <span class="badge badge-primary badge-sm">{{ selectedStatuses().size }}</span>
-        }
-        <!-- chevron-down heroicon (outline) -->
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19.5 8.25L12 15.75L4.5 8.25"/>
-        </svg>
-      </button>
-      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow border border-base-300 z-10 w-48 p-1 mt-1">
-        @for (status of statusOptions(); track status) {
-          <li>
-            <label class="flex items-center gap-2 cursor-pointer px-3 py-2">
-              <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" [checked]="isSelectedStatus(status)" (change)="toggleStatus(status)" />
-              <span class="text-sm">{{ status }}</span>
-            </label>
-          </li>
-        }
-      </ul>
-    </div>
+    <!-- Status filter selection -->
+    @if (showStatusFilter()) {
+      <div class="dropdown">
+        <button tabindex="0" class="btn btn-ghost border border-base-300 w-36 justify-between">
+          Status
+          @if (selectedStatuses().size > 0) {
+            <span class="badge badge-primary badge-sm">{{ selectedStatuses().size }}</span>
+          }
+          <!-- chevron-down heroicon (outline) -->
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19.5 8.25L12 15.75L4.5 8.25"/>
+          </svg>
+        </button>
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow border border-base-300 z-10 w-48 p-1 mt-1">
+          @for (status of statusOptions(); track status) {
+            <li>
+              <label class="flex items-center gap-2 cursor-pointer px-3 py-2">
+                <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" [checked]="isSelectedStatus(status)" (change)="toggleStatus(status)" />
+                <span class="text-sm">{{ status }}</span>
+              </label>
+            </li>
+          }
+        </ul>
+      </div>
+     }
 
+    <!-- Text search filter -->
     <input type="text" placeholder="Search by: Control#, Vendor, or Subject" class="input input-bordered flex-1" [value]="searchText()" (input)="searchText.set($any($event.target).value)" />
 
     <button class="btn btn-primary">
@@ -43,12 +47,14 @@
   </div>
 
   <!-- Active filter badges row -->
-  @if (selectedStatuses().size > 0) {
-    <div class="flex flex-wrap items-center gap-2">
-      <span class="text-xs text-base-content/50">Selected filters:</span>
-      @for (status of selectedStatusesArray(); track status) {
-        <span class="badge badge-sm bg-base-300 text-base-content/70 border-0 text-xs">Status - {{ status }}</span>
-      }
-    </div>
+  @if (showStatusFilter()) {
+    @if (selectedStatuses().size > 0) {
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs text-base-content/50">Selected filters:</span>
+        @for (status of selectedStatusesArray(); track status) {
+          <span class="badge badge-sm bg-base-300 text-base-content/70 border-0 text-xs">Status - {{ status }}</span>
+        }
+      </div>
+    }
   }
 </div>

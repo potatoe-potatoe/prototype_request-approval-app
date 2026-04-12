@@ -12,6 +12,10 @@ export class RequestsTableFilters {
 
   statusOptions = input<RequestStatus[]>([]);
 
+  protected showStatusFilter(): boolean {
+    return this.statusOptions().length > 0;
+  }
+
   protected toggleStatus(status: string): void {
     this.selectedStatuses.update(set => {
       const next = new Set(set);
