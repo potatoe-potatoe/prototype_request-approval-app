@@ -20,7 +20,7 @@ export class Submitted implements OnInit {
 
   /**
    * Pending filters
-   * 
+   *
    * These properties are used for pagination changes without affecting
    *  the user's applied filters.
    * There are 2 separate properties because object signals won't work
@@ -55,11 +55,7 @@ export class Submitted implements OnInit {
   protected onFiltersReset(): void {
     this.pendingSearchText.set('');
     this.pendingStatusList.set([...this.statusOptions]);
-    this.appliedFilters = {
-      searchText: '',
-      statusList: this.statusOptions
-    };
-
+    this.appliedFilters = { searchText: '', statusList: this.statusOptions };
     this.loadRequests(1);
   }
 
@@ -70,7 +66,7 @@ export class Submitted implements OnInit {
   /**
    * Updates the item count per page without affecting the user's
    *  applied filters.
-   * Pending filter changes are discarded and reverted to the 
+   * Pending filter changes are discarded and reverted to the
    *  previously applied state.
    */
   protected changePageSize(pageSize: number): void {

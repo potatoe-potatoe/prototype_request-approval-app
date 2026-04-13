@@ -18,9 +18,9 @@ export class Drafts implements OnInit {
   protected pendingSearchText = signal('');
 
   // Applied filters
-    private appliedFilters: RequestFilters = {
-      searchText: ''
-    };
+  private appliedFilters: RequestFilters = {
+    searchText: ''
+  };
 
   private myRequestsService = inject(MyRequestsService);
 
