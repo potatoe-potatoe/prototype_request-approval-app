@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ApprovalRequest } from '../../types/request-type';
-import { RequestsService } from '../../services/requests-service';
+import { RequestsService } from '../../../services/requests-service';
 
 @Component({
   selector: 'app-view-request',

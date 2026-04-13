@@ -3,7 +3,7 @@ import { ApprovalRequest, RequestFilters, RequestStatus, requestStatusList } fro
 import { PaginationMetadata } from '../../core/types/pagination-type';
 import { RequestsTableFilters } from "../../shared/components/requests-table-filters/requests-table-filters";
 import { RequestsTable } from "../../shared/components/requests-table/requests-table";
-import { AllRequestsService } from './all-requests-service';
+import { AllRequestsService } from '../../services/all-requests-service';
 
 @Component({
   selector: 'app-all-requests',

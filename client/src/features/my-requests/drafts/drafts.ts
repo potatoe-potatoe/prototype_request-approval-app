@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ApprovalRequest, RequestFilters } from '../../../shared/types/request-type';
-import { MyRequestsService } from '../my-requests-service';
+import { MyRequestsService } from '../../../services/my-requests-service';
 import { PaginationMetadata } from '../../../core/types/pagination-type';
 import { RequestsTableFilters } from "../../../shared/components/requests-table-filters/requests-table-filters";
 import { RequestsTable } from "../../../shared/components/requests-table/requests-table";

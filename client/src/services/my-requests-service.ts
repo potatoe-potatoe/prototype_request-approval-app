@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { ApprovalRequest, RequestStatus } from '../../shared/types/request-type';
-import { PagedResult } from '../../core/types/pagination-type';
-import { mockRequests } from '../../mock-data';
+import { ApprovalRequest, RequestStatus } from '../shared/types/request-type';
+import { PagedResult } from '../core/types/pagination-type';
+import { mockRequests } from '../mock-data';
 
 @Injectable({
   providedIn: 'root',
