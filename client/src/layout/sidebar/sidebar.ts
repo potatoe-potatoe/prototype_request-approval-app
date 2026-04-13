@@ -5,7 +5,6 @@ import { Icon, iconPaths } from '../../core/enums/icon-enum';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.css',
   imports: [RouterLink, RouterLinkActive],
 })
 export class Sidebar {
