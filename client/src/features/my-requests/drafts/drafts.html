@@ -5,14 +5,18 @@
     <p class="text-base-content/60">Review your draft requests before submitting them for approval.</p>
   </div>
 
-  <!-- Filters -->
-  <app-requests-table-filters/>
+    <!-- Filters -->
+  <app-requests-table-filters
+    [(searchText)]="pendingSearchText"
+    (filtersApplied)="onFiltersApplied($event)"
+    (filtersReset)="onFiltersReset()"/>
 
-  <!-- COntent -->
   <app-requests-table
     [requests]="requests()"
-    [currentPage]="paginationData().currentPage"
-    [totalPages]="paginationData().totalPages"
-    [pageSize]="paginationData().pageSize"
-    [totalItems]="paginationData().totalItems"/>
+    [currentPage]="pagination().currentPage"
+    [totalPages]="pagination().totalPages"
+    [pageSize]="pagination().pageSize"
+    [totalItems]="pagination().totalItems"
+    (pageChange)="changePage($event)"
+    (pageSizeChange)="changePageSize($event)"/>
 </div>
