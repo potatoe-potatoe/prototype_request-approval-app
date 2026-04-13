@@ -3,16 +3,22 @@ import { Dashboard } from '../features/dashboard/dashboard';
 import { Drafts } from '../features/my-requests/drafts/drafts';
 import { Submitted } from '../features/my-requests/submitted/submitted';
 import { AllRequests } from '../features/all-requests/all-requests';
+import { ViewRequest } from '../shared/components/view-request/view-request';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: Dashboard },
   {
-    path: 'my-requests',
+    path: 'requests',
     children: [
-      { path: 'drafts', component: Drafts },
-      { path: 'submitted', component: Submitted },
-    ],
-  },
-  { path: 'all-requests', component: AllRequests }
+      {
+        path: 'my',
+        children: [
+          { path: 'drafts', component: Drafts },
+          { path: 'submitted', component: Submitted }
+        ]
+      },
+      { path: 'all', component: AllRequests }
+    ]
+  }
 ];

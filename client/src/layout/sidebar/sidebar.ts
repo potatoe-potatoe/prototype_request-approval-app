@@ -16,8 +16,8 @@ export class Sidebar {
       route: '/',
       icon: Icon.Inbox,
       children: [
-        { label: 'Drafts', route: '/my-requests/drafts', icon: Icon.PencilSquare },
-        { label: 'Submitted', route: '/my-requests/submitted', icon: Icon.PaperAirplane },
+        { label: 'Drafts', route: '/requests/my/drafts', icon: Icon.PencilSquare },
+        { label: 'Submitted', route: '/requests/my/submitted', icon: Icon.PaperAirplane },
       ],
     },
     // TODO: Uncomment once the core pages are done
@@ -31,7 +31,7 @@ export class Sidebar {
     //     { label: 'Completed', route: '/', icon: Icon.CheckCircle },
     //   ],
     // },
-    { label: 'All Requests', route: '/all-requests', icon: Icon.QueueList },
+    { label: 'All Requests', route: '/requests/all', icon: Icon.QueueList },
   ];
 
   protected collapsed = signal(false);
