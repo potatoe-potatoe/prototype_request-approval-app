@@ -67,7 +67,7 @@ export class RequestsTableFilters {
   protected onSearchInput(event: Event): void {
     setTimeout(() => {
       this.searchText.set((event.target as HTMLInputElement).value);
-    }, 300);
+    }, 150);
   }
 
   // ----------------------------------------
