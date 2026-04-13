@@ -36,6 +36,6 @@ export class AllRequestsService {
       pagination: { currentPage: page, pageSize, totalItems, totalPages },
     };
 
-    return of(result).pipe(delay(1500));
+    return of(result).pipe(delay(500));
   }
 }

@@ -6,13 +6,19 @@
   </div>
 
   <!-- Filters -->
-  <app-requests-table-filters [statusOptions]="statusOptions"/>
+  <app-requests-table-filters
+    [statusOptions]="statusOptions"
+    [(searchText)]="pendingSearchText"
+    [(selectedStatuses)]="pendingStatusList"
+    (filtersApplied)="onFiltersApplied($event)"
+    (filtersReset)="onFiltersReset()"/>
 
-  <!-- COntent -->
   <app-requests-table
     [requests]="requests()"
-    [currentPage]="paginationData().currentPage"
-    [totalPages]="paginationData().totalPages"
-    [pageSize]="paginationData().pageSize"
-    [totalItems]="paginationData().totalItems"/>
+    [currentPage]="pagination().currentPage"
+    [totalPages]="pagination().totalPages"
+    [pageSize]="pagination().pageSize"
+    [totalItems]="pagination().totalItems"
+    (pageChange)="changePage($event)"
+    (pageSizeChange)="changePageSize($event)"/>
 </div>

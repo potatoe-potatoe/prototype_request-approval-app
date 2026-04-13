@@ -10,7 +10,7 @@ export interface ApprovalRequest {
 
 export enum RequestStatus {
   Draft = 'Draft',
-  UnderReview = 'Under Review',
+  UnderReview = 'In Progress',
   Returned = 'Returned',
   Rejected = 'Rejected',
   Completed = 'Completed',
