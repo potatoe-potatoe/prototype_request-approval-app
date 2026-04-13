@@ -18,7 +18,8 @@ export const routes: Routes = [
           { path: 'submitted', component: Submitted }
         ]
       },
-      { path: 'all', component: AllRequests }
+      { path: 'all', component: AllRequests },
+      { path: ':id', component: ViewRequest },
     ]
   }
 ];

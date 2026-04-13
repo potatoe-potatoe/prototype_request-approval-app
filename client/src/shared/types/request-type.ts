@@ -1,4 +1,5 @@
 export interface ApprovalRequest {
+  id: string;
   controlNo: string;
   vendor: string;
   subject: string;
@@ -6,6 +7,17 @@ export interface ApprovalRequest {
   currentStep: string;
   createdOn: string;
   lastUpdatedOn: string;
+  reviewTypes: ReviewType[];
+  tags: string[];
+  transactionType: string;
+  amount: number;
+}
+
+// TODO: Check if necessary without the mock data file
+export enum ReviewType {
+  Onboarding = 'Onboarding',
+  Update = 'Update',
+  Others = 'Others',
 }
 
 export enum RequestStatus {

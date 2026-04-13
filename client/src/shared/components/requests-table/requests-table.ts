@@ -1,11 +1,13 @@
 import { Component, input, output } from '@angular/core';
 import { ApprovalRequest } from '../../types/request-type';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-requests-table',
   templateUrl: './requests-table.html',
   styleUrl: './requests-table.css',
   host: { class: 'flex flex-col flex-1 min-h-0 gap-2' },
+  imports: [RouterLink],
 })
 export class RequestsTable {
   requests = input<ApprovalRequest[]>([]);
@@ -42,5 +44,9 @@ export class RequestsTable {
 
   protected hasNextPage(): boolean {
     return this.currentPage() < this.totalPages();
+  }
+
+  protected buildLink(id: string): string {
+    return `/requests/${id}`;
   }
 }
