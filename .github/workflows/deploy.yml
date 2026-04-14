@@ -3,8 +3,8 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches:
-      - 'chore/github-pages-deploy' # Use quotes for slashes
-  workflow_dispatch:                # Enables the manual "Run" button
+      - 'chore/github-pages-deployment' # Use quotes for slashes
+  workflow_dispatch:                    # Enables the manual "Run" button
 
 permissions:
   contents: read
@@ -13,7 +13,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: client       # GitHub Actions need this info
+    working-directory: client           # GitHub Actions need this info
 
 jobs:
   deploy:
