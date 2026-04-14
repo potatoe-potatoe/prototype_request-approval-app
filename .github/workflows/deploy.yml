@@ -3,7 +3,7 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches:
-      - 'chore/github-pages-deployment' # Use quotes for slashes
+      - 'development'                   # Use quotes for branches with slashes
   workflow_dispatch:                    # Enables the manual "Run" button
 
 permissions:
