@@ -1,6 +1,6 @@
 name: Build and Deploy to GitHub Pages
 
-on:
+on: # Define the trigger branch
   push:
     branches:
       - 'chore/github-pages-deployment'  # Default branch
