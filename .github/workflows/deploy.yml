@@ -3,7 +3,7 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - chore/github-pages-deploy  # Default branch
+      - 'chore/github-pages-deploy'  # Default branch
 
 permissions:
   contents: write
