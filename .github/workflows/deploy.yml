@@ -23,4 +23,4 @@ jobs:
         with:
           path: client/dist/client/browser
           install_command: cd client && npm ci
-          build_command: cd client && npm run build -- --base-href=/${{ github.event.repository.name }}/
+          build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/
