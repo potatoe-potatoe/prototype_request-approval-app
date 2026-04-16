@@ -1,33 +1,28 @@
-<div class="flex flex-col gap-3 p-6 pb-12 min-h-full">
-  <button class="flex items-center gap-1.5 text-sm text-base-content/50 hover:text-base-content w-fit cursor-pointer" (click)="goBack()">
-    <!-- arrow-left heroicon (outline) -->
-    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
-    </svg>
-    Back
-  </button>
+<div class="flex flex-col min-h-full">
+  <!-- Sticky: Back, Subject, Control # -->
+  <div class="sticky top-0 z-10 bg-base-100 flex flex-col gap-3 px-6 pt-6 pb-4">
+    <button class="flex items-center gap-1.5 text-sm text-base-content/50 hover:text-base-content w-fit cursor-pointer" (click)="goBack()">
+      <!-- arrow-left heroicon (outline) -->
+      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+      </svg>
+      Back
+    </button>
+    @if (request(); as request) {
+      <div class="flex flex-col gap-1">
+        <h1 class="text-2xl font-bold">{{ request.subject }}</h1>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-base-content/60">Control No.</span>
+          <span class="text-sm">{{ request.controlNo || '—' }}</span>
+        </div>
+      </div>
+    }
+  </div>
 
   @if (request(); as request) {
-    <!-- Page title -->
-    <div class="flex flex-col gap-1 mb-4">
-      <h1 class="text-2xl font-bold">{{ request!.subject }}</h1>
-      <div class="flex items-center gap-2">
-        <span class="text-sm text-base-content/60">Control No.</span>
-        <span class="text-sm">{{ request!.controlNo || '—' }}</span>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-2 gap-x-12 gap-y-6">
-      <div class="flex flex-col gap-1">
-        <span class="text-sm font-medium text-base-content/60">Transaction Type</span>
-        <span class="text-base">{{ request!.transactionType }}</span>
-      </div>
-
-      <div class="flex flex-col gap-1">
-        <span class="text-sm font-medium text-base-content/60">Amount</span>
-        <span class="text-base">{{ request!.amount | number }}</span>
-      </div>
-
+    <div class="flex flex-col gap-6 px-6 pb-12">
+      <div class="grid grid-cols-2 gap-x-12 gap-y-6">
+      <!-- Row 1: Vendor, Review Type -->
       <div class="flex flex-col gap-1">
         <span class="text-sm font-medium text-base-content/60">Vendor</span>
         <span class="text-base">{{ request!.vendor }}</span>
@@ -44,13 +39,25 @@
         </div>
       </div>
 
-      <div class="flex flex-col gap-2">
+      <!-- Row 2: Tags (full width) -->
+      <div class="col-span-2 flex flex-col gap-2">
         <span class="text-sm font-medium text-base-content/60">Tags</span>
         <div class="flex flex-wrap gap-2">
-          @for (tag of request!.tags; track tag) {
-            <span class="badge badge-sm bg-base-300 text-base-content/70 border-0">{{ tag }}</span>
+          @for (tag of request!.tags; track tag.name) {
+            <span class="badge badge-sm bg-base-300 text-base-content/70 border-0">{{ tag.name }}: {{ tag.count | number:'1.2-2' }}</span>
           }
         </div>
+      </div>
+
+      <!-- Row 3: Transaction Type, Amount -->
+      <div class="flex flex-col gap-1">
+        <span class="text-sm font-medium text-base-content/60">Transaction Type</span>
+        <span class="text-base">{{ request!.transactionType }}</span>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <span class="text-sm font-medium text-base-content/60">Amount</span>
+        <span class="text-base">{{ request!.amount | number }}</span>
       </div>
     </div>
 
@@ -60,6 +67,7 @@
       <h2 class="text-base font-semibold">Approval Trail</h2>
       <app-approval-table />
     </div>
+  </div>
   } @else {
     <div class="flex items-center justify-center flex-1 text-base-content/40">
       Loading...

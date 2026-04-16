@@ -8,9 +8,14 @@ export interface ApprovalRequest {
   createdOn: string;
   lastUpdatedOn: string;
   reviewTypes: ReviewType[];
-  tags: string[];
+  tags: Tag[];
   transactionType: string;
   amount: number;
+}
+
+export interface Tag {
+  name: string;
+  count: number;
 }
 
 // TODO: Check if necessary without the mock data file
