@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { mockApprovalMatrix } from '../../../../mock-data';
-import { ApprovalReference, ApprovalStep } from '../../../types/approval-type';
+import { ApprovalStep } from '../../../types/approval-type';
 
 @Component({
   selector: 'app-approval-table',
@@ -9,25 +9,24 @@ import { ApprovalReference, ApprovalStep } from '../../../types/approval-type';
   imports: [DatePipe],
 })
 export class ApprovalTable {
+  private urlCopied = signal("");
+  protected urlCopyTimeout = 0;
+
   // TODO: Pass from parent OR get from service
   protected readonly steps: ApprovalStep[] = mockApprovalMatrix;
 
-  // TODO: Transfer to a helper service
-  protected getReferenceList(refString: string): ApprovalReference[] {
-    return refString.split(' | ').map(ref => {
-      const urlMatch = ref.match(/https?:\/\/.+/);
-      if (urlMatch) {
-        const url = urlMatch[0];
-        const label = ref.slice(0, ref.indexOf(url)).replace(/\s*-\s*$/, '').trim();
-        return { label, url };
-      }
+  protected copyToClipboard(url: string, id: string): void {
+    navigator.clipboard.writeText(url);
+    this.urlCopied.set(id)
+    clearTimeout(this.urlCopyTimeout);
 
-      return {
-        label: ref,
-        url: ''
-      };
-    });
+    this.urlCopyTimeout = setTimeout(
+      () => this.urlCopied.set(""),
+      2500
+    );
+  }
+
+  protected isUrlCopied(id: string): boolean {
+    return this.urlCopied() === id;
   }
 }
-
-

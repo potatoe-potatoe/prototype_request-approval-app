@@ -1,7 +1,6 @@
 export interface ApprovalStep {
   approvalGroupName: string;
   comments: ApprovalComment[];
-  references: string;
   signatures: ApprovalSignature[];
 }
 
@@ -9,6 +8,7 @@ export interface ApprovalComment {
   commenter: string;
   comment: string;
   commentedAt: string;
+  references: ApprovalReference[];
 }
 
 export interface ApprovalSignature {

@@ -782,56 +782,69 @@ export const mockApprovalMatrix = [
         commenter: "De Marco, Jose",
         comment: "Requesting for external training for the team. The training costs Php10,000.00 for a min of 30pax. Please see provided link for reference.",
         commentedAt: "2024-06-12T09:30:00",
+        references: [
+          {
+            label: 'Training',
+            url: 'https://www.google.com',
+          },
+        ],
       },
       {
-        id: 'cmt-002',
         commenter: "Tiongon, Pia",
         comment: "All good for me.",
         commentedAt: "2024-06-12T11:47:00",
+        references: [],
       },
     ],
-    references: "Training - https://www.google.com",
     signatures: [
       {
         name: "De Marco, Jose",
         isSigned: true,
-        signedAt: "2024-06-12T12:13:00"
+        signedAt: "2024-06-12T12:13:00",
       },
       {
         name: "Tiongson, Pia",
         isSigned: true,
-        signedAt: "2024-06-12T17:09:00"
-      }
-    ]
+        signedAt: "2024-06-12T17:09:00",
+      },
+    ],
   },
   {
     approvalGroupName: "Department Head Approval",
     comments: [
       {
-        id: 'cmt-003',
         commenter: "Villanueva, Marco",
         comment: "Reviewed the request. Can you confirm whether the training provider is accredited by TESDA or any recognized body? Please attach supporting documentation if available.",
         commentedAt: "2024-06-12T14:20:00",
+        references: [],
       },
       {
-        id: 'cmt-004',
         commenter: "De Marco, Jose",
         comment: "Hi Sir Marco, the provider is not TESDA-accredited but they are a registered SEC corporation with prior engagements with two of our partner companies. I've added their company profile link under references.",
         commentedAt: "2024-06-12T15:05:00",
+        references: [
+          {
+            label: 'Provider Company Profile',
+            url: 'https://www.google.com',
+          },
+          {
+            label: 'Previous Client List',
+            url: 'https://www.google.com',
+          },
+        ],
       },
       {
-        id: 'cmt-005',
         commenter: "Villanueva, Marco",
         comment: "Noted. That's acceptable for this type of training. I'll endorse this to Budget Review.",
         commentedAt: "2024-06-13T09:58:00",
+        references: [],
       },
     ],
-    references: "Provider Company Profile - https://www.google.com | Previous Client List - https://www.google.com",
     signatures: [
       {
         name: "Villanueva, Marco",
         isSigned: true,
-        signedAt: "2024-06-13T10:45:00"
+        signedAt: "2024-06-13T10:45:00",
       },
     ],
   },
@@ -839,41 +852,54 @@ export const mockApprovalMatrix = [
     approvalGroupName: "Budget Review",
     comments: [
       {
-        id: 'cmt-006',
         commenter: "Reyes, Ana",
         comment: "Checking fund availability. The requested amount of Php300,000.00 (30 pax × Php10,000.00) will be sourced from the Q3 Training and Development fund. Current available balance is Php415,000.00.",
         commentedAt: "2024-06-13T11:10:00",
+        references: [
+          {
+            label: 'Q3 T&D Budget Summary',
+            url: 'https://www.google.com',
+          },
+          {
+            label: 'Fund Utilization Policy',
+            url: 'https://www.google.com',
+          },
+        ],
       },
       {
-        id: 'cmt-007',
         commenter: "Tiongson, Pia",
         comment: "Hi Ma'am Ana, we actually have 32 confirmed participants now. Please let us know if we need to revise the total amount.",
         commentedAt: "2024-06-13T11:48:00",
+        references: [],
       },
       {
-        id: 'cmt-008',
         commenter: "Reyes, Ana",
         comment: "Yes, please update the request amount to Php320,000.00 to reflect 32 pax. Remaining T&D balance after this will be Php95,000.00. Budget is available — endorsing to Finance.",
         commentedAt: "2024-06-13T13:05:00",
+        references: [
+          {
+            label: 'Budget Request Form',
+            url: 'https://www.google.com',
+          },
+        ],
       },
       {
-        id: 'cmt-009',
         commenter: "De Marco, Jose",
         comment: "Understood. Amount has been updated accordingly. Thank you!",
         commentedAt: "2024-06-13T13:31:00",
+        references: [],
       },
     ],
-    references: "Q3 T&D Budget Summary - https://www.google.com | Budget Request Form - https://www.google.com | Fund Utilization Policy - https://www.google.com",
     signatures: [
       {
         name: "Reyes, Ana",
         isSigned: true,
-        signedAt: "2024-06-13T15:22:00"
+        signedAt: "2024-06-13T15:22:00",
       },
       {
         name: "Castillo, Dennis",
         isSigned: true,
-        signedAt: "2024-06-14T09:05:00"
+        signedAt: "2024-06-14T09:05:00",
       },
     ],
   },
@@ -881,47 +907,64 @@ export const mockApprovalMatrix = [
     approvalGroupName: "Finance Approval",
     comments: [
       {
-        id: 'cmt-010',
         commenter: "Santos, Lito",
         comment: "Please attach the official quotation from the training provider. We need this for the check voucher preparation.",
         commentedAt: "2024-06-14T14:22:00",
+        references: [
+          {
+            label: 'Accounts Payable Guidelines',
+            url: 'https://www.google.com',
+          },
+          {
+            label: 'Check Voucher Template',
+            url: 'https://www.google.com',
+          },
+        ],
       },
       {
-        id: 'cmt-011',
         commenter: "Tiongson, Pia",
         comment: "Hi Sir Lito, attached is the formal quotation under references. The training is scheduled for July 5–6, 2024.",
         commentedAt: "2024-06-14T15:03:00",
+        references: [
+          {
+            label: 'Official Quotation',
+            url: 'https://www.google.com',
+          },
+          {
+            label: 'Training Schedule',
+            url: 'https://www.google.com',
+          },
+        ],
       },
       {
-        id: 'cmt-012',
         commenter: "Santos, Lito",
         comment: "Received. One more — are meals and accommodations covered in the Php10,000 rate, or are those billed separately?",
         commentedAt: "2024-06-14T16:10:00",
+        references: [],
       },
       {
-        id: 'cmt-013',
         commenter: "De Marco, Jose",
         comment: "The rate is inclusive of training materials and AM/PM snacks. Lunch is separate and will be charged to the event budget, not this request.",
         commentedAt: "2024-06-14T16:44:00",
+        references: [],
       },
       {
-        id: 'cmt-014',
         commenter: "Santos, Lito",
         comment: "Noted and documented. Financials are in order. Forwarding to Finance Head for final sign-off.",
         commentedAt: "2024-06-17T10:55:00",
+        references: [],
       },
     ],
-    references: "Official Quotation - https://www.google.com | Training Schedule - https://www.google.com | Accounts Payable Guidelines - https://www.google.com | Check Voucher Template - https://www.google.com",
     signatures: [
       {
         name: "Santos, Lito",
         isSigned: true,
-        signedAt: "2024-06-17T11:30:00"
+        signedAt: "2024-06-17T11:30:00",
       },
       {
         name: "Cruz, Maribel",
         isSigned: true,
-        signedAt: "2024-06-17T16:55:00"
+        signedAt: "2024-06-17T16:55:00",
       },
     ],
   },
@@ -929,24 +972,32 @@ export const mockApprovalMatrix = [
     approvalGroupName: "VP Operations Approval",
     comments: [
       {
-        id: 'cmt-015',
         commenter: "Alcantara, Roberto",
         comment: "I've reviewed the full endorsement chain. This aligns well with the team's capability roadmap for H2. No objections — approving.",
         commentedAt: "2024-06-18T09:22:00",
+        references: [
+          {
+            label: 'H2 Capability Roadmap',
+            url: 'https://www.google.com',
+          },
+          {
+            label: 'HR Training Calendar',
+            url: 'https://www.google.com',
+          },
+        ],
       },
       {
-        id: 'cmt-016',
         commenter: "De Marco, Jose",
         comment: "Thank you, Sir Roberto! The team is very much looking forward to this.",
         commentedAt: "2024-06-18T10:14:00",
+        references: [],
       },
     ],
-    references: "H2 Capability Roadmap - https://www.google.com | HR Training Calendar - https://www.google.com",
     signatures: [
       {
         name: "Alcantara, Roberto",
         isSigned: true,
-        signedAt: "2024-06-18T14:15:00"
+        signedAt: "2024-06-18T14:15:00",
       },
     ],
   },
@@ -954,47 +1005,67 @@ export const mockApprovalMatrix = [
     approvalGroupName: "Released",
     comments: [
       {
-        id: 'cmt-017',
         commenter: "Dizon, Carla",
         comment: "Purchase Order No. PO-2024-1187 has been generated and sent to the supplier. Estimated processing time is 3–5 business days.",
         commentedAt: "2024-06-19T08:35:00",
+        references: [
+          {
+            label: 'PO-2024-1187',
+            url: 'https://www.google.com',
+          },
+          {
+            label: 'Supplier Confirmation',
+            url: 'https://www.google.com',
+          },
+        ],
       },
       {
-        id: 'cmt-018',
         commenter: "Fuentes, Mark",
         comment: "Check Voucher No. CV-2024-0892 prepared and filed. Payment will be released upon submission of training completion report and official receipt.",
         commentedAt: "2024-06-19T09:02:00",
+        references: [
+          {
+            label: 'CV-2024-0892',
+            url: 'https://www.google.com',
+          },
+          {
+            label: 'Payment Release Policy',
+            url: 'https://www.google.com',
+          },
+          {
+            label: 'Training Completion Form',
+            url: 'https://www.google.com',
+          },
+        ],
       },
       {
-        id: 'cmt-019',
         commenter: "De Marco, Jose",
         comment: "Noted. We'll submit the OR and completion report right after the training on July 6. Thank you everyone!",
         commentedAt: "2024-06-19T09:28:00",
+        references: [],
       },
     ],
-    references: "PO-2024-1187 - https://www.google.com | CV-2024-0892 - https://www.google.com | Supplier Confirmation - https://www.google.com | Payment Release Policy - https://www.google.com | Training Completion Form - https://www.google.com",
     signatures: [
       {
         name: "Dizon, Carla",
         isSigned: true,
-        signedAt: "2024-06-19T10:00:00"
+        signedAt: "2024-06-19T10:00:00",
       },
       {
         name: "Fuentes, Mark",
         isSigned: true,
-        signedAt: "2024-06-19T13:48:00"
+        signedAt: "2024-06-19T13:48:00",
       },
     ],
   },
   {
     approvalGroupName: "CFO Approval",
     comments: [],
-    references: "",
     signatures: [
       {
         name: "Villanueva, Carmen",
         isSigned: false,
-        signedAt: null
+        signedAt: null,
       },
     ],
   },
