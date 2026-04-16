@@ -867,7 +867,7 @@ export const mockApprovalMatrix = [
         ],
       },
       {
-        commenter: "Tiongson, Pia",
+        commenter: "De Marco, Jose",
         comment: "Hi Ma'am Ana, we actually have 32 confirmed participants now. Please let us know if we need to revise the total amount.",
         commentedAt: "2024-06-13T11:48:00",
         references: [],
@@ -922,7 +922,7 @@ export const mockApprovalMatrix = [
         ],
       },
       {
-        commenter: "Tiongson, Pia",
+        commenter: "De Marco, Jose",
         comment: "Hi Sir Lito, attached is the formal quotation under references. The training is scheduled for July 5–6, 2024.",
         commentedAt: "2024-06-14T15:03:00",
         references: [
