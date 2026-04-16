@@ -14,7 +14,8 @@
         },
         "@schematics/angular:component": {
           "skipTests": true,
-          "path": "src"
+          "path": "src",
+          "style": "none"
         },
         "@schematics/angular:directive": {
           "skipTests": true
