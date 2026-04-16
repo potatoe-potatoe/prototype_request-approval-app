@@ -1,10 +1,10 @@
 <aside
   class="flex flex-col bg-base-200 h-full transition-all duration-300"
-  [class.w-64]="!collapsed()"
+  [class.w-56]="!collapsed()"
   [class.w-14]="collapsed()"
 >
   <!-- Expanded: overflow-hidden clips labels during width transition -->
-  <ul class="menu p-2 gap-1 flex-1 w-full overflow-hidden" [class.hidden]="collapsed()">
+  <ul class="menu p-2 gap-0.5 flex-1 w-full overflow-hidden [&_a]:py-2 [&_summary]:py-2 [&_ul]:pt-0.5" [class.hidden]="collapsed()">
     @for (item of navItems; track item.label) {
       @if (item.children) {
         <li>
@@ -17,10 +17,10 @@
               </svg>
               {{ item.label }}
             </summary>
-            <ul>
+            <ul class="flex flex-col gap-0.5">
               @for (child of item.children; track child.label) {
                 <li>
-                  <a [routerLink]="child.route" routerLinkActive="active" class="whitespace-nowrap">
+                  <a [routerLink]="child.route" routerLinkActive="bg-primary text-primary-content" class="whitespace-nowrap">
                     <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                       @for (path of iconPaths[child.icon]; track path) {
                         <path [attr.d]="path"/>
@@ -35,7 +35,7 @@
         </li>
       } @else {
         <li>
-          <a [routerLink]="item.route" routerLinkActive="active" class="whitespace-nowrap">
+          <a [routerLink]="item.route" routerLinkActive="bg-primary text-primary-content" class="whitespace-nowrap">
             <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               @for (path of iconPaths[item.icon]; track path) {
                 <path [attr.d]="path"/>
@@ -49,12 +49,12 @@
   </ul>
 
   <!-- Collapsed: no overflow-hidden so tooltips can render outside the sidebar -->
-  <ul class="menu p-2 gap-1 flex-1 w-full" [class.hidden]="!collapsed()">
+  <ul class="menu p-2 gap-0.5 flex-1 w-full [&_a]:py-2" [class.hidden]="!collapsed()">
     @for (item of navItems; track item.label) {
       @if (item.children) {
         @for (child of item.children; track child.label) {
           <li class="tooltip tooltip-right" [attr.data-tip]="item.label + ' - ' + child.label">
-            <a [routerLink]="child.route" routerLinkActive="active">
+            <a [routerLink]="child.route" routerLinkActive="bg-primary text-primary-content">
               <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 @for (path of iconPaths[child.icon]; track path) {
                   <path [attr.d]="path"/>
@@ -65,7 +65,7 @@
         }
       } @else {
         <li class="tooltip tooltip-right" [attr.data-tip]="item.label">
-          <a [routerLink]="item.route" routerLinkActive="active">
+          <a [routerLink]="item.route" routerLinkActive="bg-primary text-primary-content">
             <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               @for (path of iconPaths[item.icon]; track path) {
                 <path [attr.d]="path"/>
@@ -78,7 +78,7 @@
   </ul>
 
   <div class="border-t border-base-300">
-    <button class="btn btn-ghost rounded-none w-full flex items-center gap-2 py-3" (click)="toggle()">
+    <button class="btn btn-ghost rounded-none w-full flex items-center justify-center gap-2 py-3" (click)="toggle()">
       @if (collapsed()) {
         <!-- chevron-double-right heroicon (outline) -->
         <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
