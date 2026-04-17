@@ -1259,3 +1259,54 @@ export const mockApprovalMatrix = [
     ],
   },
 ];
+
+export const mockTransactionTypes = [
+  { name: 'Purchase Order', children: [] },
+  { name: 'Service Contract', children: [] },
+  { name: 'Consultancy Agreement', children: [] },
+  { name: 'Lease Agreement', children: [] },
+  { name: 'Memorandum of Agreement', children: [] },
+  { name: 'Request for Quotation', children: [] },
+  { name: 'Delivery Order', children: [] },
+  { name: 'Work Order', children: [] },
+  { name: 'Job Order', children: [] },
+  { name: 'Supply Agreement', children: [] },
+  {
+    name: 'Equipment',
+    children: [
+      { name: 'Rental', children: [] },
+      { name: 'Purchase', children: [] },
+      { name: 'Leasing', children: [] },
+    ],
+  },
+  {
+    name: 'IT',
+    children: [
+      { name: 'Software License', children: [] },
+      { name: 'SaaS Subscription', children: [] },
+      { name: 'Hardware Procurement', children: [] },
+      {
+        name: 'Maintenance',
+        children: [
+          { name: 'Software', children: [] },
+          { name: 'Hardware', children: [] },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Infrastructure',
+    children: [
+      { name: 'Construction', children: [] },
+      { name: 'Renovation', children: [] },
+      {
+        name: 'Repair',
+        children: [
+          { name: 'Civil', children: [] },
+          { name: 'Electrical', children: [] },
+          { name: 'Mechanical', children: [] },
+        ],
+      },
+    ],
+  },
+];

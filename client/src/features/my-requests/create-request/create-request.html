@@ -1,0 +1,122 @@
+<div class="flex flex-col min-h-full">
+  <!-- Header -->
+  <div class="bg-base-100 flex flex-col gap-3 px-6 pt-6 pb-4">
+    <div class="flex items-start gap-4">
+      <div class="flex flex-col gap-1 flex-1">
+        <input
+          type="text"
+          class="input input-bordered text-2xl font-semibold w-full"
+          placeholder="Enter subject..."
+          [value]="subject()"
+          (input)="subject.set($any($event.target).value)"
+        />
+        <div class="flex items-center gap-2 ml-1">
+          <span class="text-sm text-base-content/60">Control No.</span>
+          <span class="text-sm text-base-content/30">N/A, generated upon submission</span>
+        </div>
+      </div>
+      <div class="flex gap-2 shrink-0">
+        <button class="btn btn-outline" (click)="goBack()">Cancel</button>
+        <button class="btn btn-primary">Save Draft</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fields -->
+  <div class="flex flex-col gap-6 px-6 pt-4 pb-12">
+    <div class="grid grid-cols-2 gap-x-12 gap-y-6">
+
+      <!-- Row 1: Vendor, Review Type -->
+      <div class="flex flex-col gap-1.5">
+        <label class="text-sm font-medium text-base-content/60">Vendor</label>
+        <input
+          type="text"
+          class="input input-bordered w-full"
+          placeholder="Enter vendor name"
+          [value]="vendor()"
+          (input)="vendor.set($any($event.target).value)"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <span class="text-sm font-medium text-base-content/60">Review Type</span>
+        <div class="flex flex-wrap gap-4">
+          @for (type of reviewTypeOptions; track type) {
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                class="checkbox checkbox-primary checkbox-sm"
+                [checked]="isReviewTypeSelected(type)"
+                (change)="toggleReviewType(type)"
+              />
+              <span class="text-sm">{{ type }}</span>
+            </label>
+          }
+        </div>
+        @if (isOthersSelected()) {
+          <input
+            type="text"
+            class="input input-bordered input-sm w-full"
+            placeholder="Please specify..."
+            [value]="reviewTypeOtherText()"
+            (input)="reviewTypeOtherText.set($any($event.target).value)"
+          />
+        }
+      </div>
+
+      <!-- Row 2: Transaction Type, Amount -->
+      <div class="flex flex-col gap-1.5">
+        <label class="text-sm font-medium text-base-content/60">Transaction Type</label>
+        <div class="dropdown w-full">
+          <div tabindex="0" role="button" class="select select-bordered w-full flex items-center">
+            @if (transactionType()) {
+              <span>{{ transactionType() }}</span>
+            } @else {
+              <span class="text-base-content/40">Select transaction type</span>
+            }
+          </div>
+          <ul tabindex="0" class="dropdown-content bg-base-100 rounded-box border border-base-300 shadow z-10 w-full mt-1 p-1 max-h-60 overflow-y-auto flex-nowrap">
+            @for (item of transactionTypes; track item.name) {
+              @if (item.children.length === 0) {
+                <li>
+                  <button class="w-full text-left px-3 py-2 text-sm rounded-btn hover:bg-base-200" (click)="selectTransactionType(item.name)">{{ item.name }}</button>
+                </li>
+              } @else {
+                <li class="px-3 pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wide text-base-content/40 select-none">{{ item.name }}</li>
+                @for (child of item.children; track child.name) {
+                  @if (child.children.length === 0) {
+                    <li>
+                      <button class="w-full text-left pl-5 pr-3 py-2 text-sm rounded-btn hover:bg-base-200" (click)="selectTransactionType(child.name)">{{ child.name }}</button>
+                    </li>
+                  } @else {
+                    <li class="pl-5 pr-3 pt-1.5 pb-0.5 text-xs font-semibold text-base-content/40 select-none">{{ child.name }}</li>
+                    @for (grandchild of child.children; track grandchild.name) {
+                      <li>
+                        <button class="w-full text-left pl-9 pr-3 py-2 text-sm rounded-btn hover:bg-base-200" (click)="selectTransactionType(grandchild.name)">{{ grandchild.name }}</button>
+                      </li>
+                    }
+                  }
+                }
+              }
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-sm font-medium text-base-content/60">Amount</label>
+        <select
+          class="select select-bordered w-full"
+          [value]="amountRange()"
+          (change)="amountRange.set($any($event.target).value)"
+        >
+          <option value="" disabled>Select amount</option>
+          @for (range of amountRangeOptions; track range) {
+            <option [value]="range">{{ range }}</option>
+          }
+        </select>
+      </div>
+
+    </div>
+  </div>
+</div>

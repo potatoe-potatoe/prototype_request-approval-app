@@ -1,7 +1,9 @@
 import { Component, OnInit, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
+  imports: [RouterLink],
   templateUrl: './dashboard.html',
 })
 export class Dashboard implements OnInit {
@@ -30,11 +32,6 @@ export class Dashboard implements OnInit {
       },
       2500
     );
-  }
-
-  protected createRequest(): void {
-    // TODO: Apply actual code
-    window.alert('Create new request!');
   }
 }
 

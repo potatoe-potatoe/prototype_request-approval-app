@@ -1,3 +1,6 @@
+// ----------------------------------------
+//  Interfaces
+// ----------------------------------------
 export interface ApprovalRequest {
   id: string;
   controlNo: string;
@@ -18,10 +21,17 @@ export interface Tag {
   count: number;
 }
 
-// TODO: Check if necessary without the mock data file
+export interface RequestFilters {
+  searchText: string;
+  statusList?: RequestStatus[];
+}
+
+// ----------------------------------------
+//  Enums
+// ----------------------------------------
 export enum ReviewType {
-  Onboarding = 'Onboarding',
-  Update = 'Update',
+  Onboarding = 'Contract',
+  Update = 'Proposal',
   Others = 'Others',
 }
 
@@ -33,9 +43,15 @@ export enum RequestStatus {
   Completed = 'Completed',
   Cancelled = 'Cancelled',
 }
-export const requestStatusList = Object.values(RequestStatus);
 
-export interface RequestFilters {
-  searchText: string;
-  statusList?: RequestStatus[];
+export enum AmountOption {
+  UpTo1M = 'Up to 1M',
+  Above1M = 'Above 1M'
 }
+
+// ----------------------------------------
+//  Constants
+// ----------------------------------------
+export const reviewTypes = Object.values(ReviewType);
+export const requestStatuses = Object.values(RequestStatus);
+export const amountOptions = Object.values(AmountOption);

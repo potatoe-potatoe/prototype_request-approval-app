@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ApprovalRequest, RequestFilters, RequestStatus, requestStatusList } from '../../../shared/types/request-type';
+import { ApprovalRequest, RequestFilters, RequestStatus, requestStatuses } from '../../../shared/types/request-type';
 import { MyRequestsService } from '../../../services/my-requests-service';
 import { RequestsTable } from '../../../shared/components/requests-table/requests-table';
 import { RequestsTableFilters } from '../../../shared/components/requests-table-filters/requests-table-filters';
@@ -11,7 +11,7 @@ import { PaginationMetadata } from '../../../core/types/pagination-type';
   imports: [RequestsTable, RequestsTableFilters],
 })
 export class Submitted implements OnInit {
-  protected readonly statusOptions = requestStatusList.filter(
+  protected readonly statusOptions = requestStatuses.filter(
     s => ![RequestStatus.Draft, RequestStatus.Returned].includes(s)
   );
 
