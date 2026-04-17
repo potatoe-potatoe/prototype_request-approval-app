@@ -2,7 +2,7 @@
   <div class="flex items-center gap-3">
     <!-- Status filter selection -->
     @if (showStatusFilter()) {
-      <div class="dropdown dropdown-hover" (mouseleave)="closeStatusDropdown()">
+      <div class="dropdown">
         <button tabindex="0" class="btn btn-ghost border border-base-300 w-36 justify-between">
           Status
           @if (allStatusSelected()) {

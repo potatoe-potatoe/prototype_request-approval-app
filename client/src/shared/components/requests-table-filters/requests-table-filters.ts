@@ -21,16 +21,6 @@ export class RequestsTableFilters {
     return this.statusOptions().length > 0;
   }
 
-  /**
-   * Programatically closes the dropdown.
-   * When a checklist item inside the multiselect status dropdown
-   *  is selected, it moves the focus to the dropdown, assigning
-   *  it as the current active element.
-   * The code below removes focus from the active element.
-   */
-  protected closeStatusDropdown(): void {
-    (document.activeElement as HTMLElement)?.blur();
-  }
 
   protected allStatusSelected(): boolean {
     return this.statusOptions().length > 0 &&
