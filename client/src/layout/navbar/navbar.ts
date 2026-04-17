@@ -8,5 +8,10 @@ import { ThemeService } from '../../core/services/theme-service';
 })
 export class Navbar {
   protected readonly themeService = inject(ThemeService);
-  protected readonly themes = Object.values(Theme);
+
+  protected toggleTheme(): void {
+    this.themeService.setTheme(
+      this.themeService.theme() === Theme.Dark ? Theme.Light : Theme.Dark
+    );
+  }
 }

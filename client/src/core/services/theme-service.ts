@@ -8,7 +8,8 @@ export class ThemeService {
   private readonly key = 'theme';
   private readonly defaultTheme = Theme.Light;
 
-  theme = signal<Theme>(this.defaultTheme);
+  private readonly _theme = signal<Theme>(this.defaultTheme);
+  readonly theme = this._theme.asReadonly();
 
   constructor() {
     this.loadTheme();
@@ -16,7 +17,7 @@ export class ThemeService {
 
   setTheme(theme: Theme): void {
     localStorage.setItem(this.key, theme);
-    this.theme.set(theme);
+    this._theme.set(theme);
     console.info(`Theme is set to "${theme}".`);
   }
 
@@ -26,7 +27,7 @@ export class ThemeService {
       console.warn(`No theme detected. Using default theme: ${this.defaultTheme}`);
       theme = this.defaultTheme;
     }
-    this.theme.set(theme as Theme);
+    this._theme.set(theme as Theme);
   }
 
   private isTheme(theme: string): boolean {
