@@ -24,7 +24,7 @@ export class CreateRequest {
 
   protected readonly form = this.fb.group({
     subject: ['', [Validators.required]],
-    reviewType: [null as ReviewType | null],
+    reviewType: [ReviewType.Contract as ReviewType | null],
     reviewTypeOther: [''],
     vendor: [''],
     transactionType: [''],
@@ -38,6 +38,7 @@ export class CreateRequest {
 
   protected newFundName = signal('');
   protected newFundAmount = signal<number | null>(null);
+  protected editingFundIndex = signal<number | null>(null);
 
   // Not yet converted
   protected includeDirectManager = signal(false);
@@ -49,6 +50,7 @@ export class CreateRequest {
     this.location.back();
   }
 
+  // TODO: Update logic for saving
   protected saveDraft(): void {
     console.log(this.form.value);
   }
@@ -64,27 +66,62 @@ export class CreateRequest {
     }
   }
 
-  protected hasNewFund(): boolean {
+  protected hasFundInput(): boolean {
     const name = this.newFundName().trim();
-    const count = this.newFundAmount();
+    const amount = this.newFundAmount();
     const hasName = (name && name.length > 0) as boolean;
-    const hasCount = !!count as boolean;
-    return hasName && hasCount;
+    const hasAmount = !!amount as boolean;
+    return hasName && hasAmount;
   }
 
   protected addFund(): void {
-    if (!this.hasNewFund()) return;
+    if (!this.hasFundInput()) return;
     const name = this.newFundName().trim();
-    const count = this.newFundAmount() ?? 0;
-    const current = this.form.controls.funds.value;
-    this.form.controls.funds.setValue([...current, { name, count }]);
+    const amount = this.newFundAmount() ?? 0;
+    const index = this.editingFundIndex();
+    const currentFunds = this.form.controls.funds.value;
+
+    if (index != null) this.updateFund(index, name, amount);
+    else {
+      this.form.controls.funds.setValue([...currentFunds, { name, amount }]);
+    }
+
     this.newFundName.set('');
     this.newFundAmount.set(null);
   }
 
+  private updateFund(index: number, name: string, amount: number): void {
+    const currentFunds = this.form.controls.funds.value;
+    this.form.controls.funds.setValue(
+      currentFunds.map((f, i) => i === index ? { name, amount }: f)
+    );
+    this.editingFundIndex.set(null);
+  }
+
   protected removeFund(index: number): void {
-    const current = this.form.controls.funds.value;
-    this.form.controls.funds.setValue(current.filter((_: Fund, i: number) => i !== index));
+    const currentFunds = this.form.controls.funds.value;
+    this.form.controls.funds.setValue(
+      currentFunds.filter((_: Fund, i: number) => i !== index)
+    );
+
+    if (this.editingFundIndex() === index) {
+      this.editingFundIndex.set(null);
+      this.newFundName.set('');
+      this.newFundAmount.set(null);
+    }
+  }
+
+  protected editFund(index: number): void {
+    const fund = this.form.controls.funds.value[index];
+    this.newFundName.set(fund.name);
+    this.newFundAmount.set(fund.amount);
+    this.editingFundIndex.set(index);
+  }
+
+  protected cancelEditFund(): void {
+    this.editingFundIndex.set(null);
+    this.newFundName.set('');
+    this.newFundAmount.set(null);
   }
 
   protected selectTransactionType(value: string): void {

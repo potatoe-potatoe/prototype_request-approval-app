@@ -18,7 +18,7 @@ export interface ApprovalRequest {
 
 export interface Fund {
   name: string;
-  count: number;
+  amount: number;
 }
 
 export interface RequestFilters {
@@ -35,8 +35,8 @@ export interface TransactionType {
 //  Enums
 // ----------------------------------------
 export enum ReviewType {
-  Onboarding = 'Contract',
-  Update = 'Proposal',
+  Contract = 'Contract',
+  Proposal = 'Proposal',
   Others = 'Others',
 }
 
