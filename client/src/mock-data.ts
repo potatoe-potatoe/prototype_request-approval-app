@@ -1310,3 +1310,11 @@ export const mockTransactionTypes = [
     ],
   },
 ];
+
+export const mockManagers = [
+  'Santos, Maria',
+  'Reyes, Juan',
+  'Cruz, Ana',
+  'Garcia, Luis',
+  'Torres, Carmen',
+];

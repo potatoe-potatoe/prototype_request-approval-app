@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { amountOptions, ReviewType, reviewTypes, Tag, TransactionType } from '../../../shared/types/request-type';
-import { mockTransactionTypes } from '../../../mock-data';
+import { mockManagers, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
 
 @Component({
@@ -14,10 +14,12 @@ export class CreateRequest {
   private readonly location = inject(Location);
   private readonly fb = inject(FormBuilder);
 
-  protected readonly ReviewType = ReviewType;
   protected readonly reviewTypeOptions = reviewTypes;
+
+  // TODO: Fetch from the backend
   protected readonly transactionTypes: TransactionType[] = mockTransactionTypes as TransactionType[];
   protected readonly amountRangeOptions = amountOptions;
+  protected readonly approverOptions = mockManagers;
 
   protected readonly form = this.fb.group({
     subject: ['', [Validators.required]],
@@ -29,21 +31,14 @@ export class CreateRequest {
     tags: this.fb.nonNullable.control<Tag[]>([]),
   });
 
-  // Not yet converted
   protected newTagName = signal('');
   protected newTagAmount = signal<number | null>(null);
+
+  // Not yet converted
   protected includeDirectManager = signal(false);
   protected directManagerId = signal('');
   protected includeSponsor = signal(false);
   protected sponsorId = signal('');
-
-  protected readonly approverOptions = [
-    'Santos, Maria',
-    'Reyes, Juan',
-    'Cruz, Ana',
-    'Garcia, Luis',
-    'Torres, Carmen',
-  ];
 
   protected goBack(): void {
     this.location.back();
