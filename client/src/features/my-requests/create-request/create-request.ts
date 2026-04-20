@@ -5,10 +5,11 @@ import { amountOptions, Fund, ReviewType, reviewTypes, TransactionType } from '.
 import { mockManagers, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
 import { ApprovalReference } from '../../../shared/types/approval-type';
+import { SearchableSelect } from '../../../core/components/searchable-select/searchable-select';
 
 @Component({
   selector: 'app-create-request',
-  imports: [DecimalPipe, CommentEditor, ReactiveFormsModule],
+  imports: [DecimalPipe, CommentEditor, ReactiveFormsModule, SearchableSelect],
   templateUrl: './create-request.html',
 })
 export class CreateRequest {
@@ -45,6 +46,18 @@ export class CreateRequest {
   protected directManagerId = signal('');
   protected includeSponsor = signal(false);
   protected sponsorId = signal('');
+
+  protected toggleDirectManager(): void {
+    const next = !this.includeDirectManager();
+    this.includeDirectManager.set(next);
+    if (!next) this.directManagerId.set('');
+  }
+
+  protected toggleSponsor(): void {
+    const next = !this.includeSponsor();
+    this.includeSponsor.set(next);
+    if (!next) this.sponsorId.set('');
+  }
 
   protected goBack(): void {
     this.location.back();
