@@ -26,6 +26,11 @@ export interface RequestFilters {
   statusList?: RequestStatus[];
 }
 
+export interface TransactionType {
+  name: string;
+  children: TransactionType[];
+}
+
 // ----------------------------------------
 //  Enums
 // ----------------------------------------

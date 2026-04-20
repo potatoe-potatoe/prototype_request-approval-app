@@ -1,4 +1,4 @@
-<div class="flex flex-col min-h-full">
+<div class="flex flex-col min-h-full" [formGroup]="form">
   <!-- Header -->
   <div class="bg-base-100 flex flex-col gap-3 px-6 pt-6 pb-4">
     <div class="flex items-start gap-4">
@@ -7,8 +7,7 @@
           type="text"
           class="input input-bordered text-2xl font-semibold w-full"
           placeholder="Enter subject..."
-          [value]="subject()"
-          (input)="subject.set($any($event.target).value)"
+          formControlName="subject"
         />
         <div class="flex items-center gap-2 ml-1">
           <span class="text-sm text-base-content/60">Control No.</span>
@@ -17,7 +16,7 @@
       </div>
       <div class="flex gap-2 shrink-0">
         <button class="btn btn-outline" (click)="goBack()">Cancel</button>
-        <button class="btn btn-primary">Save Draft</button>
+        <button class="btn btn-primary" (click)="saveDraft()" [disabled]="!form.valid">Save Draft</button>
       </div>
     </div>
   </div>
@@ -37,20 +36,20 @@
                   type="radio"
                   name="reviewType"
                   class="radio radio-primary radio-sm"
-                  [checked]="selectedReviewType() === type"
+                  [value]="type"
+                  formControlName="reviewType"
                   (change)="selectReviewType(type)"
                 />
                 <span class="text-sm">{{ type }}</span>
               </label>
             }
           </div>
-          @if (isOthersSelected()) {
+          @if (isOthersSelected) {
             <input
               type="text"
               class="input input-bordered w-full mt-0.5"
               placeholder="Please specify"
-              [value]="reviewTypeOtherText()"
-              (input)="reviewTypeOtherText.set($any($event.target).value)"
+              formControlName="reviewTypeOther"
             />
           }
         </div>
@@ -61,8 +60,7 @@
             type="text"
             class="input input-bordered w-full"
             placeholder="Enter vendor name"
-            [value]="vendor()"
-            (input)="vendor.set($any($event.target).value)"
+            formControlName="vendor"
           />
         </div>
       </div>
@@ -85,11 +83,11 @@
             [value]="newTagAmount() ?? ''"
             (input)="newTagAmount.set(+$any($event.target).value || null)"
           />
-          <button class="btn btn-outline" [disabled]="!newTagName().trim()" (click)="addTag()">+ Add</button>
+          <button class="btn btn-outline" [disabled]="!hasNewTag()" (click)="addTag()">+ Add</button>
         </div>
-        @if (tags().length > 0) {
+        @if (form.controls.tags.value.length > 0) {
           <div class="flex flex-wrap gap-2">
-            @for (tag of tags(); track tag.name; let i = $index) {
+            @for (tag of form.controls.tags.value; track tag.name; let i = $index) {
               <div class="cursor-pointer select-none">
                 <span class="badge badge-md bg-base-300 text-base-content/70 hover:bg-base-300/80 hover:text-base-content/60 border-0 gap-1.5 pr-2">
                   {{ tag.name }}: Php{{ tag.count | number:'1.2-2' }}
@@ -106,8 +104,8 @@
         <label class="text-sm font-medium text-base-content/60">Transaction Type</label>
         <div class="dropdown w-full">
           <div tabindex="0" role="button" class="select select-bordered w-full flex items-center">
-            @if (transactionType()) {
-              <span>{{ transactionType() }}</span>
+            @if (form.controls.transactionType.value) {
+              <span>{{ form.controls.transactionType.value }}</span>
             } @else {
               <span class="text-base-content/40">Select transaction type</span>
             }
@@ -117,7 +115,7 @@
               @if (item.children.length === 0) {
                 <li>
                   <button class="w-full flex items-center gap-1.5 px-3 py-2 text-sm rounded-btn hover:bg-base-content/20" (click)="selectTransactionType(item.name)">
-                    <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="transactionType() !== item.name" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+                    <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="form.controls.transactionType.value !== item.name" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
                     <span>{{ item.name }}</span>
                   </button>
                 </li>
@@ -127,7 +125,7 @@
                   @if (child.children.length === 0) {
                     <li>
                       <button class="w-full flex items-center gap-1.5 pl-5 pr-3 py-2 text-sm rounded-btn hover:bg-base-content/20" (click)="selectTransactionType(child.name)">
-                        <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="transactionType() !== child.name" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+                        <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="form.controls.transactionType.value !== child.name" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
                         <span>{{ child.name }}</span>
                       </button>
                     </li>
@@ -136,7 +134,7 @@
                     @for (grandchild of child.children; track grandchild.name) {
                       <li>
                         <button class="w-full flex items-center gap-1.5 pl-9 pr-3 py-2 text-sm rounded-btn hover:bg-base-content/20" (click)="selectTransactionType(grandchild.name)">
-                          <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="transactionType() !== grandchild.name" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+                          <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="form.controls.transactionType.value !== grandchild.name" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
                           <span>{{ grandchild.name }}</span>
                         </button>
                       </li>
@@ -152,9 +150,8 @@
       <div class="flex flex-col gap-1.5">
         <label class="text-sm font-medium text-base-content/60">Amount</label>
         <select
-          [class]="'select select-bordered w-full' + (!amountRange() ? ' text-base-content/40' : '')"
-          [value]="amountRange()"
-          (change)="amountRange.set($any($event.target).value)"
+          [class]="'select select-bordered w-full' + (!form.controls.amountRange.value ? ' text-base-content/40' : '')"
+          formControlName="amountRange"
         >
           <option class="text-base-content/40" value="" disabled>Select amount</option>
           @for (range of amountRangeOptions; track range) {
