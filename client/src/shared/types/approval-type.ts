@@ -4,11 +4,14 @@ export interface ApprovalStep {
   signatures: ApprovalSignature[];
 }
 
-export interface ApprovalComment {
-  commenter: string;
+export interface DraftApprovalComment {
   comment: string;
-  commentedAt: string;
   references: ApprovalReference[];
+}
+
+export interface ApprovalComment extends DraftApprovalComment {
+  commenter: string;
+  commentedAt: string;
 }
 
 export interface ApprovalSignature {

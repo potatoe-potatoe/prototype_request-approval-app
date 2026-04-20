@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { amountOptions, Fund, ReviewType, reviewTypes, TransactionType } from '../../../shared/types/request-type';
 import { mockManagers, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
+import { ApprovalReference } from '../../../shared/types/approval-type';
 
 @Component({
   selector: 'app-create-request',
@@ -29,6 +30,10 @@ export class CreateRequest {
     transactionType: [''],
     amountRange: [''],
     funds: this.fb.nonNullable.control<Fund[]>([]),
+    comment: this.fb.group({
+      text: [''],
+      references: this.fb.nonNullable.control<ApprovalReference[]>([]),
+    }),
   });
 
   protected newFundName = signal('');
