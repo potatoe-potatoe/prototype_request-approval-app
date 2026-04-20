@@ -2,10 +2,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
 import { amountOptions, ReviewType, reviewTypes, Tag } from '../../../shared/types/request-type';
 import { mockTransactionTypes } from '../../../mock-data';
+import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
 
 @Component({
   selector: 'app-create-request',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, CommentEditor],
   templateUrl: './create-request.html',
 })
 export class CreateRequest {
@@ -25,6 +26,18 @@ export class CreateRequest {
   protected tags = signal<Tag[]>([]);
   protected newTagName = signal('');
   protected newTagAmount = signal<number | null>(null);
+  protected includeDirectManager = signal(false);
+  protected directManagerId = signal('');
+  protected includeSponsor = signal(false);
+  protected sponsorId = signal('');
+
+  protected readonly approverOptions = [
+    'Santos, Maria',
+    'Reyes, Juan',
+    'Cruz, Ana',
+    'Garcia, Luis',
+    'Torres, Carmen',
+  ];
 
   protected readonly isOthersSelected = computed(() =>
     this.selectedReviewType() === ReviewType.Others

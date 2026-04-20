@@ -47,8 +47,8 @@
           @if (isOthersSelected()) {
             <input
               type="text"
-              class="input input-bordered input-sm w-full mt-2"
-              placeholder="Please specify..."
+              class="input input-bordered w-full mt-0.5"
+              placeholder="Please specify"
               [value]="reviewTypeOtherText()"
               (input)="reviewTypeOtherText.set($any($event.target).value)"
             />
@@ -74,14 +74,14 @@
           <input
             type="text"
             class="input input-bordered w-48"
-            placeholder="Tag name..."
+            placeholder="Enter tag name"
             [value]="newTagName()"
             (input)="newTagName.set($any($event.target).value)"
           />
           <input
             type="number"
             class="input input-bordered w-36"
-            placeholder="Amount"
+            placeholder="Enter amount"
             [value]="newTagAmount() ?? ''"
             (input)="newTagAmount.set(+$any($event.target).value || null)"
           />
@@ -90,10 +90,12 @@
         @if (tags().length > 0) {
           <div class="flex flex-wrap gap-2">
             @for (tag of tags(); track tag.name; let i = $index) {
-              <span class="badge badge-sm bg-base-300 text-base-content/70 border-0 gap-1.5 pr-1">
-                {{ tag.name }}: {{ tag.count | number:'1.2-2' }}
-                <button class="hover:text-base-content cursor-pointer" (click)="removeTag(i)">✕</button>
-              </span>
+              <div class="cursor-pointer select-none">
+                <span class="badge badge-md bg-base-300 text-base-content/70 hover:bg-base-300/80 hover:text-base-content/60 border-0 gap-1.5 pr-2">
+                  {{ tag.name }}: Php{{ tag.count | number:'1.2-2' }}
+                  <button class="hover:text-base-content" (click)="removeTag(i)">✕</button>
+                </span>
+              </div>
             }
           </div>
         }
@@ -145,7 +147,7 @@
           [value]="amountRange()"
           (change)="amountRange.set($any($event.target).value)"
         >
-          <option value="" disabled>Select amount</option>
+          <option class="text-base-content/40" value="" disabled>Select amount</option>
           @for (range of amountRangeOptions; track range) {
             <option [value]="range">{{ range }}</option>
           }
@@ -153,5 +155,77 @@
       </div>
 
     </div>
+
+    <hr class="border-base-300 mt-3">
+
+    <div class="flex flex-col gap-3">
+      <h2 class="text-base font-semibold">Approval Trail</h2>
+      <div class="card bg-base-100 shadow">
+        <div class="overflow-x-auto">
+          <table class="table table-fixed w-full min-w-175">
+            <colgroup>
+              <col class="w-[5%]">
+              <col class="w-[15%]">
+              <col class="w-[57%]">
+              <col class="w-[23%]">
+            </colgroup>
+            <thead class="bg-base-200">
+              <tr class="[&>th]:py-2.5">
+                <th>#</th>
+                <th>Reviewed By</th>
+                <th>Comments</th>
+                <th>Signature</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="[&>td]:align-top">
+                <td class="text-base-content/50">1</td>
+                <td class="font-medium text-base-content/40">Requestor</td>
+                <td>
+                  <app-comment-editor />
+                </td>
+                <td class="flex flex-col gap-6"> <!-- Signatures -->
+                  <div class="flex flex-col gap-0.5">
+                    <span class="text-sm font-medium italic">De Marco, Jose</span>
+                    <span class="badge badge-sm badge-warning badge-outline">Pending</span>
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <div class="flex flex-col gap-2">
+                      <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="toggle toggle-sm checked:bg-primary checked:text-base-300" [checked]="includeDirectManager()" (change)="includeDirectManager.set(!includeDirectManager())"/>
+                        <span class="text-sm">Include direct manager</span>
+                      </label>
+                      @if (includeDirectManager()) {
+                        <select class="select select-sm select-bordered w-full mb-4" [value]="directManagerId()" (change)="directManagerId.set($any($event.target).value)">
+                          <option value="" disabled>Select manager</option>
+                          @for (name of approverOptions; track name) {
+                            <option [value]="name">{{ name }}</option>
+                          }
+                        </select>
+                      }
+                    </div>
+                    <div class="flex flex-col gap-2">
+                      <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="toggle toggle-sm checked:bg-primary checked:text-base-300" [checked]="includeSponsor()" (change)="includeSponsor.set(!includeSponsor())"/>
+                        <span class="text-sm">Include sponsor</span>
+                      </label>
+                      @if (includeSponsor()) {
+                        <select class="select select-sm select-bordered w-full mb-2" [value]="sponsorId()" (change)="sponsorId.set($any($event.target).value)">
+                          <option value="" disabled>Select sponsor</option>
+                          @for (name of approverOptions; track name) {
+                            <option [value]="name">{{ name }}</option>
+                          }
+                        </select>
+                      }
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
