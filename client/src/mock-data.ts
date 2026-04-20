@@ -12,7 +12,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-01',
     lastUpdatedOn: '2025-03-05',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'furniture', count: 234 },
       { name: 'office', count: 512 },
     ],
@@ -29,7 +29,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-08',
     lastUpdatedOn: '2025-03-09',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'hardware', count: 891 },
     ],
@@ -46,7 +46,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-10',
     lastUpdatedOn: '2025-03-12',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'contract', count: 1000 },
     ],
@@ -63,7 +63,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-15',
     lastUpdatedOn: '2025-03-15',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'supplies', count: 445 },
       { name: 'printing', count: 187 },
     ],
@@ -80,7 +80,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-18',
     lastUpdatedOn: '2025-03-20',
     reviewTypes: [ReviewType.Onboarding, ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'events', count: 356 },
       { name: 'catering', count: 123 },
     ],
@@ -97,7 +97,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-20',
     lastUpdatedOn: '2025-03-20',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'security', count: 654 },
       { name: 'it', count: 1243 },
       { name: 'infrastructure', count: 923 },
@@ -115,7 +115,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-21',
     lastUpdatedOn: '2025-03-28',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'health', count: 312 },
       { name: 'safety', count: 267 },
       { name: 'supplies', count: 445 },
@@ -133,7 +133,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-22',
     lastUpdatedOn: '2025-03-25',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'logistics', count: 445 },
       { name: 'contract', count: 1000 },
     ],
@@ -150,7 +150,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-23',
     lastUpdatedOn: '2025-03-26',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'infrastructure', count: 923 },
       { name: 'hardware', count: 891 },
@@ -168,7 +168,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-24',
     lastUpdatedOn: '2025-03-27',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'furniture', count: 234 },
       { name: 'hr', count: 789 },
     ],
@@ -185,7 +185,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-25',
     lastUpdatedOn: '2025-04-01',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'maintenance', count: 834 },
     ],
@@ -202,7 +202,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-26',
     lastUpdatedOn: '2025-03-27',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'marketing', count: 312 },
       { name: 'events', count: 356 },
     ],
@@ -219,7 +219,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-27',
     lastUpdatedOn: '2025-03-30',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'infrastructure', count: 923 },
       { name: 'network', count: 567 },
@@ -237,7 +237,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-28',
     lastUpdatedOn: '2025-04-03',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'hr', count: 789 },
       { name: 'onboarding', count: 234 },
     ],
@@ -254,7 +254,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-29',
     lastUpdatedOn: '2025-03-29',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'network', count: 567 },
       { name: 'hardware', count: 891 },
@@ -272,7 +272,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-03-30',
     lastUpdatedOn: '2025-04-01',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'supplies', count: 445 },
     ],
@@ -289,7 +289,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-01',
     lastUpdatedOn: '2025-04-04',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'infrastructure', count: 923 },
       { name: 'energy', count: 178 },
@@ -307,7 +307,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-02',
     lastUpdatedOn: '2025-04-05',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'supplies', count: 445 },
       { name: 'office', count: 512 },
     ],
@@ -324,7 +324,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-03',
     lastUpdatedOn: '2025-04-06',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'maintenance', count: 834 },
     ],
@@ -341,7 +341,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-05',
     lastUpdatedOn: '2025-04-05',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'compliance', count: 567 },
       { name: 'records', count: 423 },
     ],
@@ -358,7 +358,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-06',
     lastUpdatedOn: '2025-04-07',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'health', count: 312 },
       { name: 'hr', count: 789 },
       { name: 'compliance', count: 567 },
@@ -376,7 +376,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-07',
     lastUpdatedOn: '2025-04-09',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'travel', count: 145 },
       { name: 'events', count: 356 },
     ],
@@ -393,7 +393,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-08',
     lastUpdatedOn: '2025-04-10',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'logistics', count: 445 },
       { name: 'legal', count: 89 },
     ],
@@ -410,7 +410,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-09',
     lastUpdatedOn: '2025-04-11',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'hardware', count: 891 },
     ],
@@ -427,7 +427,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-10',
     lastUpdatedOn: '2025-04-10',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'maintenance', count: 834 },
       { name: 'infrastructure', count: 923 },
@@ -445,7 +445,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-11',
     lastUpdatedOn: '2025-04-12',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'supplies', count: 445 },
       { name: 'training', count: 167 },
     ],
@@ -462,7 +462,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-12',
     lastUpdatedOn: '2025-04-14',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'security', count: 654 },
       { name: 'license', count: 245 },
@@ -480,7 +480,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-13',
     lastUpdatedOn: '2025-04-15',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'furniture', count: 234 },
       { name: 'facilities', count: 678 },
     ],
@@ -497,7 +497,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-14',
     lastUpdatedOn: '2025-04-16',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'catering', count: 123 },
       { name: 'events', count: 356 },
     ],
@@ -514,7 +514,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-15',
     lastUpdatedOn: '2025-04-17',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'maintenance', count: 834 },
     ],
@@ -531,7 +531,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-16',
     lastUpdatedOn: '2025-04-16',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'network', count: 567 },
       { name: 'infrastructure', count: 923 },
@@ -549,7 +549,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-17',
     lastUpdatedOn: '2025-04-18',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'supplies', count: 445 },
       { name: 'office', count: 512 },
     ],
@@ -566,7 +566,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-18',
     lastUpdatedOn: '2025-04-20',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'compliance', count: 567 },
       { name: 'infrastructure', count: 923 },
@@ -584,7 +584,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-19',
     lastUpdatedOn: '2025-04-22',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'maintenance', count: 834 },
     ],
@@ -601,7 +601,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-20',
     lastUpdatedOn: '2025-04-21',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'hr', count: 789 },
       { name: 'printing', count: 187 },
     ],
@@ -618,7 +618,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-21',
     lastUpdatedOn: '2025-04-21',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'security', count: 654 },
       { name: 'infrastructure', count: 923 },
     ],
@@ -635,7 +635,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-22',
     lastUpdatedOn: '2025-04-23',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'maintenance', count: 834 },
       { name: 'energy', count: 178 },
@@ -653,7 +653,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-23',
     lastUpdatedOn: '2025-04-25',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'marketing', count: 312 },
       { name: 'printing', count: 187 },
     ],
@@ -670,7 +670,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-24',
     lastUpdatedOn: '2025-04-26',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'health', count: 312 },
       { name: 'safety', count: 267 },
     ],
@@ -687,7 +687,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-25',
     lastUpdatedOn: '2025-04-28',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'maintenance', count: 834 },
     ],
@@ -704,7 +704,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-26',
     lastUpdatedOn: '2025-04-26',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'infrastructure', count: 923 },
       { name: 'facilities', count: 678 },
@@ -722,7 +722,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-27',
     lastUpdatedOn: '2025-04-28',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'hr', count: 789 },
       { name: 'events', count: 356 },
       { name: 'travel', count: 145 },
@@ -740,7 +740,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-28',
     lastUpdatedOn: '2025-04-29',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'marketing', count: 312 },
       { name: 'it', count: 1243 },
     ],
@@ -757,7 +757,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-29',
     lastUpdatedOn: '2025-04-30',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'security', count: 654 },
       { name: 'license', count: 245 },
@@ -775,7 +775,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-04-30',
     lastUpdatedOn: '2025-05-03',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'furniture', count: 234 },
       { name: 'records', count: 423 },
       { name: 'compliance', count: 567 },
@@ -793,7 +793,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-01',
     lastUpdatedOn: '2025-05-01',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'health', count: 312 },
       { name: 'supplies', count: 445 },
       { name: 'office', count: 512 },
@@ -811,7 +811,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-02',
     lastUpdatedOn: '2025-05-04',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'logistics', count: 445 },
       { name: 'contract', count: 1000 },
     ],
@@ -828,7 +828,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-03',
     lastUpdatedOn: '2025-05-06',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'compliance', count: 567 },
       { name: 'records', count: 423 },
       { name: 'security', count: 654 },
@@ -846,7 +846,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-04',
     lastUpdatedOn: '2025-05-05',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'hardware', count: 891 },
       { name: 'operations', count: 456 },
@@ -864,7 +864,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-05',
     lastUpdatedOn: '2025-05-08',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'catering', count: 123 },
       { name: 'hr', count: 789 },
       { name: 'events', count: 356 },
@@ -882,7 +882,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-06',
     lastUpdatedOn: '2025-05-06',
     reviewTypes: [ReviewType.Onboarding],
-    tags: [
+    funds: [
       { name: 'it', count: 1243 },
       { name: 'network', count: 567 },
       { name: 'infrastructure', count: 923 },
@@ -900,7 +900,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-07',
     lastUpdatedOn: '2025-05-09',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'infrastructure', count: 923 },
       { name: 'energy', count: 178 },
@@ -918,7 +918,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-08',
     lastUpdatedOn: '2025-05-10',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'furniture', count: 234 },
       { name: 'office', count: 512 },
     ],
@@ -935,7 +935,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-09',
     lastUpdatedOn: '2025-05-11',
     reviewTypes: [ReviewType.Others],
-    tags: [
+    funds: [
       { name: 'printing', count: 187 },
       { name: 'compliance', count: 567 },
       { name: 'records', count: 423 },
@@ -953,7 +953,7 @@ export const mockRequests: ApprovalRequest[] = [
     createdOn: '2025-05-10',
     lastUpdatedOn: '2025-05-10',
     reviewTypes: [ReviewType.Update],
-    tags: [
+    funds: [
       { name: 'facilities', count: 678 },
       { name: 'energy', count: 178 },
       { name: 'infrastructure', count: 923 },

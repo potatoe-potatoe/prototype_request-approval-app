@@ -65,33 +65,33 @@
         </div>
       </div>
 
-      <!-- Col 2: Tags -->
+      <!-- Col 2: Funds -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-base-content/60">Tags</span>
+        <span class="text-sm font-medium text-base-content/60">Funds</span>
         <div class="flex items-center gap-2">
           <input
             type="text"
-            class="input input-bordered w-48"
-            placeholder="Enter tag name"
-            [value]="newTagName()"
-            (input)="newTagName.set($any($event.target).value)"
+            class="input input-bordered flex-3 min-w-0"
+            placeholder="Enter fund name"
+            [value]="newFundName()"
+            (input)="newFundName.set($any($event.target).value)"
           />
           <input
             type="number"
-            class="input input-bordered w-36"
+            class="input input-bordered flex-2 min-w-0"
             placeholder="Enter amount"
-            [value]="newTagAmount() ?? ''"
-            (input)="newTagAmount.set(+$any($event.target).value || null)"
+            [value]="newFundAmount() ?? ''"
+            (input)="newFundAmount.set(+$any($event.target).value || null)"
           />
-          <button class="btn btn-outline" [disabled]="!hasNewTag()" (click)="addTag()">+ Add</button>
+          <button class="btn btn-outline shrink-0" [disabled]="!hasNewFund()" (click)="addFund()">+ Add</button>
         </div>
-        @if (form.controls.tags.value.length > 0) {
+        @if (form.controls.funds.value.length > 0) {
           <div class="flex flex-wrap gap-2">
-            @for (tag of form.controls.tags.value; track tag.name; let i = $index) {
+            @for (fund of form.controls.funds.value; track fund.name; let i = $index) {
               <div class="cursor-pointer select-none">
                 <span class="badge badge-md bg-base-300 text-base-content/70 hover:bg-base-300/80 hover:text-base-content/60 border-0 gap-1.5 pr-2">
-                  {{ tag.name }}: Php{{ tag.count | number:'1.2-2' }}
-                  <button class="hover:text-base-content" (click)="removeTag(i)">✕</button>
+                  {{ fund.name }}: Php{{ fund.count | number:'1.2-2' }}
+                  <button class="hover:text-base-content" (click)="removeFund(i)">✕</button>
                 </span>
               </div>
             }

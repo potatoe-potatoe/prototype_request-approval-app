@@ -38,12 +38,12 @@
         </div>
       </div>
 
-      <!-- Row 2: Tags (full width) -->
+      <!-- Row 2: Funds (full width) -->
       <div class="col-span-2 flex flex-col gap-2">
-        <span class="text-sm font-medium text-base-content/60">Tags</span>
+        <span class="text-sm font-medium text-base-content/60">Funds</span>
         <div class="flex flex-wrap gap-2">
-          @for (tag of request!.tags; track tag.name) {
-            <span class="badge badge-sm bg-base-300 text-base-content/70 border-0">{{ tag.name }}: {{ tag.count | number:'1.2-2' }}</span>
+          @for (fund of request!.funds; track fund.name) {
+            <span class="badge badge-sm bg-base-300 text-base-content/70 border-0">{{ fund.name }}: {{ fund.count | number:'1.2-2' }}</span>
           }
         </div>
       </div>

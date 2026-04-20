@@ -11,12 +11,12 @@ export interface ApprovalRequest {
   createdOn: string;
   lastUpdatedOn: string;
   reviewTypes: ReviewType[];
-  tags: Tag[];
+  funds: Fund[];
   transactionType: string;
   amount: number;
 }
 
-export interface Tag {
+export interface Fund {
   name: string;
   count: number;
 }

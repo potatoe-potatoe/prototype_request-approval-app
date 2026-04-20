@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { amountOptions, ReviewType, reviewTypes, Tag, TransactionType } from '../../../shared/types/request-type';
+import { amountOptions, Fund, ReviewType, reviewTypes, TransactionType } from '../../../shared/types/request-type';
 import { mockManagers, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
 
@@ -28,11 +28,11 @@ export class CreateRequest {
     vendor: [''],
     transactionType: [''],
     amountRange: [''],
-    tags: this.fb.nonNullable.control<Tag[]>([]),
+    funds: this.fb.nonNullable.control<Fund[]>([]),
   });
 
-  protected newTagName = signal('');
-  protected newTagAmount = signal<number | null>(null);
+  protected newFundName = signal('');
+  protected newFundAmount = signal<number | null>(null);
 
   // Not yet converted
   protected includeDirectManager = signal(false);
@@ -59,27 +59,27 @@ export class CreateRequest {
     }
   }
 
-  protected hasNewTag(): boolean {
-    const name = this.newTagName().trim();
-    const count = this.newTagAmount();
+  protected hasNewFund(): boolean {
+    const name = this.newFundName().trim();
+    const count = this.newFundAmount();
     const hasName = (name && name.length > 0) as boolean;
     const hasCount = !!count as boolean;
     return hasName && hasCount;
   }
 
-  protected addTag(): void {
-    if (!this.hasNewTag()) return;
-    const name = this.newTagName().trim();
-    const count = this.newTagAmount() ?? 0;
-    const current = this.form.controls.tags.value;
-    this.form.controls.tags.setValue([...current, { name, count }]);
-    this.newTagName.set('');
-    this.newTagAmount.set(null);
+  protected addFund(): void {
+    if (!this.hasNewFund()) return;
+    const name = this.newFundName().trim();
+    const count = this.newFundAmount() ?? 0;
+    const current = this.form.controls.funds.value;
+    this.form.controls.funds.setValue([...current, { name, count }]);
+    this.newFundName.set('');
+    this.newFundAmount.set(null);
   }
 
-  protected removeTag(index: number): void {
-    const current = this.form.controls.tags.value;
-    this.form.controls.tags.setValue(current.filter((_, i) => i !== index));
+  protected removeFund(index: number): void {
+    const current = this.form.controls.funds.value;
+    this.form.controls.funds.setValue(current.filter((_: Fund, i: number) => i !== index));
   }
 
   protected selectTransactionType(value: string): void {
