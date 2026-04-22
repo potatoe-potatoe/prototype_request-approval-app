@@ -1,0 +1,4 @@
+<input type="checkbox"
+  [class]="'toggle checked:bg-primary checked:text-base-300' + (size() === 'sm' ? ' toggle-sm' : '')"
+  [checked]="checked()"
+  (change)="checkedChange.emit(!checked())" />

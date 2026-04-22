@@ -6,10 +6,11 @@ import { mockManagers, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
 import { ApprovalReference } from '../../../shared/types/approval-type';
 import { SearchableSelect } from '../../../core/components/searchable-select/searchable-select';
+import { Toggle } from '../../../core/components/toggle/toggle';
 
 @Component({
   selector: 'app-create-request',
-  imports: [DecimalPipe, CommentEditor, ReactiveFormsModule, SearchableSelect],
+  imports: [DecimalPipe, CommentEditor, ReactiveFormsModule, SearchableSelect, Toggle],
   templateUrl: './create-request.html',
 })
 export class CreateRequest {
@@ -47,16 +48,14 @@ export class CreateRequest {
   protected includeSponsor = signal(false);
   protected sponsorId = signal('');
 
-  protected toggleDirectManager(): void {
-    const next = !this.includeDirectManager();
-    this.includeDirectManager.set(next);
-    if (!next) this.directManagerId.set('');
+  protected toggleDirectManager(isToggled: boolean): void {
+    this.includeDirectManager.set(isToggled);
+    if (!isToggled) this.directManagerId.set('');
   }
 
-  protected toggleSponsor(): void {
-    const next = !this.includeSponsor();
-    this.includeSponsor.set(next);
-    if (!next) this.sponsorId.set('');
+  protected toggleSponsor(isToggled: boolean): void {
+    this.includeSponsor.set(isToggled);
+    if (!isToggled) this.sponsorId.set('');
   }
 
   protected goBack(): void {
