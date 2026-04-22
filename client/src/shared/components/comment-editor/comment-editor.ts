@@ -65,7 +65,7 @@ export class CommentEditor {
   protected removeReference(index: number): void {
     const currentRefs = this.commentGroup.controls.references.value;
     this.commentGroup.controls.references.setValue(
-      currentRefs.filter((_, i) => i !== index)
+      currentRefs.filter((_: ApprovalReference, i: number) => i !== index)
     );
 
     if (this.editingRefIndex() === index) {

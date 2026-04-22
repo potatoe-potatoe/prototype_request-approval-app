@@ -204,30 +204,32 @@
                   <div class="flex flex-col gap-2">
                     <div class="flex flex-col gap-2">
                       <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" class="toggle toggle-sm checked:bg-primary checked:text-base-300" [checked]="includeDirectManager()" (change)="includeDirectManager.set(!includeDirectManager())"/>
+                        <input type="checkbox" class="toggle toggle-sm checked:bg-primary checked:text-base-300" [checked]="includeDirectManager()" (change)="toggleDirectManager()"/>
                         <span class="text-sm">Include direct manager</span>
                       </label>
                       @if (includeDirectManager()) {
-                        <select class="select select-sm select-bordered w-full mb-4" [value]="directManagerId()" (change)="directManagerId.set($any($event.target).value)">
-                          <option value="" disabled>Select manager</option>
-                          @for (name of approverOptions; track name) {
-                            <option [value]="name">{{ name }}</option>
-                          }
-                        </select>
+                        <app-searchable-select
+                          class="mb-4"
+                          [options]="approverOptions"
+                          [value]="directManagerId()"
+                          placeholder="Select manager"
+                          (valueChange)="directManagerId.set($event)"
+                        />
                       }
                     </div>
                     <div class="flex flex-col gap-2">
                       <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" class="toggle toggle-sm checked:bg-primary checked:text-base-300" [checked]="includeSponsor()" (change)="includeSponsor.set(!includeSponsor())"/>
+                        <input type="checkbox" class="toggle toggle-sm checked:bg-primary checked:text-base-300" [checked]="includeSponsor()" (change)="toggleSponsor()"/>
                         <span class="text-sm">Include sponsor</span>
                       </label>
                       @if (includeSponsor()) {
-                        <select class="select select-sm select-bordered w-full mb-2" [value]="sponsorId()" (change)="sponsorId.set($any($event.target).value)">
-                          <option value="" disabled>Select sponsor</option>
-                          @for (name of approverOptions; track name) {
-                            <option [value]="name">{{ name }}</option>
-                          }
-                        </select>
+                        <app-searchable-select
+                          class="mb-2"
+                          [options]="approverOptions"
+                          [value]="sponsorId()"
+                          placeholder="Select sponsor"
+                          (valueChange)="sponsorId.set($event)"
+                        />
                       }
                     </div>
                   </div>
