@@ -69,12 +69,12 @@
       <div class="flex flex-col gap-1.5">
         <span class="text-sm font-medium text-base-content/60">Funds</span>
         <div class="flex items-center gap-2">
-          <input
-            type="text"
-            class="input input-bordered flex-3 min-w-0"
-            placeholder="Enter fund name"
-            [value]="newFundName()"
-            (input)="newFundName.set($any($event.target).value)"
+          <app-searchable-select
+            class="flex-3 min-w-0"
+            [options]="availableFundOptions"
+            [value]="newFundId()"
+            placeholder="Select fund"
+            (valueChange)="newFundId.set($event)"
           />
           <input
             type="number"
@@ -92,11 +92,11 @@
         </div>
         @if (form.controls.funds.value.length > 0) {
           <div class="flex flex-wrap gap-2">
-            @for (fund of form.controls.funds.value; track fund.name; let i = $index) {
+            @for (fund of form.controls.funds.value; track fund.id; let i = $index) {
               <!-- TODO: editFund() is still getting triggered when "x" is pressed -->
               <div class="cursor-pointer select-none" (click)="editFund(i)">
                 <span class="badge badge-md bg-base-300 text-base-content/70 hover:bg-base-300/80 hover:text-base-content/60 border-0 gap-1.5 pr-2">
-                  {{ fund.name }}: Php{{ fund.amount | number:'1.2-2' }}
+                  {{ getFundName(fund.id) }}: Php{{ fund.amount | number:'1.2-2' }}
                   <button class="hover:text-base-content cursor-pointer" (click)="removeFund(i)">✕</button>
                 </span>
               </div>
