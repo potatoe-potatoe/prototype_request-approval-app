@@ -33,6 +33,10 @@ export class CreateRequest implements OnInit {
       text: [''],
       references: this.fb.nonNullable.control<ApprovalReference[]>([]),
     }),
+    initialApprovers: this.fb.group({
+      directManagerId: this.fb.control<string | null>(null),
+      sponsorId: this.fb.control<string | null>(null),
+    }),
   });
 
   protected transactionTypes = signal<TransactionType[]>([]);
@@ -43,11 +47,8 @@ export class CreateRequest implements OnInit {
   protected newFundAmount = signal<number | null>(null);
   protected editingFundIndex = signal<number | null>(null);
 
-  // Not yet converted
   protected includeDirectManager = signal(false);
-  protected directManagerId = signal<string | null>(null);
   protected includeSponsor = signal(false);
-  protected sponsorId = signal<string | null>(null);
 
   ngOnInit(): void {
     this.loadDropdownData();
@@ -69,12 +70,17 @@ export class CreateRequest implements OnInit {
 
   protected toggleDirectManager(isToggled: boolean): void {
     this.includeDirectManager.set(isToggled);
-    if (!isToggled) this.directManagerId.set(null);
+    if (!isToggled) this.form.controls.initialApprovers.controls.directManagerId.setValue(null);
+    
   }
 
   protected toggleSponsor(isToggled: boolean): void {
     this.includeSponsor.set(isToggled);
-    if (!isToggled) this.sponsorId.set(null);
+    if (!isToggled) this.form.controls.initialApprovers.controls.sponsorId.setValue(null);
+  }
+
+  get approverFormGroup() {
+    return this.form.controls.initialApprovers;
   }
 
   protected goBack(): void {

@@ -198,7 +198,7 @@
                   <div class="flex flex-col gap-0.5">
                     <span class="text-sm font-medium text-base-content/70 italic">De Marco, Jose</span>
                   </div>
-                  <div class="flex flex-col gap-2">
+                  <div class="flex flex-col gap-2" [formGroup]="approverFormGroup">
                     <div class="flex flex-col gap-2">
                       <label class="flex items-center gap-2 cursor-pointer">
                         <app-toggle
@@ -212,9 +212,9 @@
                         <app-searchable-select
                           class="mb-4"
                           [options]="approverOptions()"
-                          [value]="directManagerId()"
+                          [value]="approverFormGroup.controls.directManagerId.value"
                           placeholder="Select manager"
-                          (valueChange)="directManagerId.set($event)"
+                          (valueChange)="approverFormGroup.controls.directManagerId.setValue($event)"
                         />
                       }
                     </div>
@@ -231,9 +231,9 @@
                         <app-searchable-select
                           class="mb-2"
                           [options]="approverOptions()"
-                          [value]="sponsorId()"
+                          [value]="approverFormGroup.controls.sponsorId.value"
                           placeholder="Select sponsor"
-                          (valueChange)="sponsorId.set($event)"
+                          (valueChange)="approverFormGroup.controls.sponsorId.setValue($event)"
                         />
                       }
                     </div>
