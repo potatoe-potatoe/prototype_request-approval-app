@@ -1,0 +1,10 @@
+<td class="text-base-content/70">{{ rowNumber() }}</td>
+<td class="font-medium text-base-content/70">
+  <ng-content select="[reviewedBy]" />
+</td>
+<td>
+  <ng-content select="[comments]" />
+</td>
+<td class="flex flex-col gap-6">
+  <ng-content select="[signatures]" />
+</td>

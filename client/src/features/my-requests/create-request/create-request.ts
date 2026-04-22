@@ -1,29 +1,25 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { amountOptions, Fund, ReviewType, reviewTypes, TransactionType } from '../../../shared/types/request-type';
-import { mockManagers, mockTransactionTypes } from '../../../mock-data';
+import { mockApprovalMatrix, mockManagers, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
-import { ApprovalReference } from '../../../shared/types/approval-type';
+import { ApprovalReference, ApprovalStep } from '../../../shared/types/approval-type';
 import { SearchableSelect } from '../../../core/components/searchable-select/searchable-select';
 import { Toggle } from '../../../core/components/toggle/toggle';
+import { ApprovalStepRow } from './approval-step-row/approval-step-row';
 
 @Component({
   selector: 'app-create-request',
-  imports: [DecimalPipe, CommentEditor, ReactiveFormsModule, SearchableSelect, Toggle],
+  imports: [DecimalPipe, CommentEditor, ReactiveFormsModule, SearchableSelect, Toggle, ApprovalStepRow],
   templateUrl: './create-request.html',
 })
-export class CreateRequest {
+export class CreateRequest implements OnInit {
   private readonly location = inject(Location);
   private readonly fb = inject(FormBuilder);
 
   protected readonly reviewTypeOptions = reviewTypes;
-
-  // TODO: Fetch from the backend
-  protected readonly transactionTypes: TransactionType[] = mockTransactionTypes as TransactionType[];
   protected readonly amountRangeOptions = amountOptions;
-  protected readonly approverOptions = mockManagers;
-
   protected readonly form = this.fb.group({
     subject: ['', [Validators.required]],
     reviewType: [ReviewType.Contract as ReviewType | null],
@@ -38,6 +34,10 @@ export class CreateRequest {
     }),
   });
 
+  protected transactionTypes = signal<TransactionType[]>([]);
+  protected approverOptions = signal<string[]>([]);
+  protected approvalMatrix = signal<ApprovalStep[]>([]);
+
   protected newFundName = signal('');
   protected newFundAmount = signal<number | null>(null);
   protected editingFundIndex = signal<number | null>(null);
@@ -47,6 +47,22 @@ export class CreateRequest {
   protected directManagerId = signal('');
   protected includeSponsor = signal(false);
   protected sponsorId = signal('');
+
+  ngOnInit(): void {
+    this.loadDropdownData();
+    this.loadApprovalMatrix();
+  }
+
+  // TODO: Fetch from the backend
+  protected loadDropdownData(): void {
+    this.transactionTypes.set(mockTransactionTypes);
+    this.approverOptions.set(mockManagers);
+  }
+
+  // TODO: Fetch from the backend
+  protected loadApprovalMatrix(): void {
+    this.approvalMatrix.set(mockApprovalMatrix.slice(1));
+  }
 
   protected toggleDirectManager(isToggled: boolean): void {
     this.includeDirectManager.set(isToggled);

@@ -1,5 +1,10 @@
 export interface ApprovalStep {
   approvalGroupName: string;
+  signatures: string[];
+}
+
+export interface ApprovalStepActivity {
+  approvalGroupName: string;
   comments: ApprovalComment[];
   signatures: ApprovalSignature[];
 }

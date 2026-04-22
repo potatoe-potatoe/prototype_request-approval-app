@@ -963,7 +963,7 @@ export const mockRequests: ApprovalRequest[] = [
   },
 ];
 
-export const mockApprovalMatrix = [
+export const mockApprovalActivities = [
   {
     approvalGroupName: "Requestor",
     comments: [
@@ -1191,7 +1191,7 @@ export const mockApprovalMatrix = [
     ],
   },
   {
-    approvalGroupName: "Released",
+    approvalGroupName: "Procurement",
     comments: [
       {
         commenter: "Dizon, Carla",
@@ -1257,6 +1257,37 @@ export const mockApprovalMatrix = [
         signedAt: null,
       },
     ],
+  },
+];
+
+export const mockApprovalMatrix = [
+  {
+    approvalGroupName: "Requestor",
+    signatures: ["De Marco, Jose", "Tiongson, Pia"],
+  },
+  {
+    approvalGroupName: "Department Head Approval",
+    signatures: ["Villanueva, Marco"],
+  },
+  {
+    approvalGroupName: "Budget Review",
+    signatures: ["Reyes, Ana", "Castillo, Dennis"],
+  },
+  {
+    approvalGroupName: "Finance Approval",
+    signatures: ["Santos, Lito", "Cruz, Maribel"],
+  },
+  {
+    approvalGroupName: "VP Operations Approval",
+    signatures: ["Alcantara, Roberto"],
+  },
+  {
+    approvalGroupName: "Procurement",
+    signatures: ["Dizon, Carla", "Fuentes, Mark"],
+  },
+  {
+    approvalGroupName: "CFO Approval",
+    signatures: ["Villanueva, Carmen"],
   },
 ];
 

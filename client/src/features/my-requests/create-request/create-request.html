@@ -117,7 +117,7 @@
             }
           </div>
           <ul tabindex="0" class="dropdown-content bg-base-100 rounded-box border border-base-300 shadow z-10 w-full mt-1 p-1 max-h-60 overflow-y-auto flex-nowrap">
-            @for (item of transactionTypes; track item.name) {
+            @for (item of transactionTypes(); track item.name) {
               @if (item.children.length === 0) {
                 <li>
                   <button class="w-full flex items-center gap-1.5 px-3 py-2 text-sm rounded-btn hover:bg-base-300" (click)="selectTransactionType(item.name)">
@@ -186,20 +186,17 @@
                 <th>#</th>
                 <th>Reviewed By</th>
                 <th>Comments</th>
-                <th>Signature</th>
+                <th>Signatures</th>
               </tr>
             </thead>
             <tbody>
-              <tr class="[&>td]:align-top">
-                <td class="text-base-content/50">1</td>
-                <td class="font-medium text-base-content/40">Requestor</td>
-                <td>
-                  <app-comment-editor [commentGroup]="form.controls.comment" />
-                </td>
-                <td class="flex flex-col gap-6"> <!-- Signatures -->
+              <!-- Row 1: Requestor (static) -->
+              <tr appApprovalStepRow [rowNumber]="1">
+                <span reviewedBy>Requestor</span>
+                <app-comment-editor comments [commentGroup]="form.controls.comment" />
+                <ng-container signatures>
                   <div class="flex flex-col gap-0.5">
-                    <span class="text-sm font-medium italic">De Marco, Jose</span>
-                    <span class="badge badge-sm badge-warning badge-outline">Pending</span>
+                    <span class="text-sm font-medium text-base-content/70 italic">De Marco, Jose</span>
                   </div>
                   <div class="flex flex-col gap-2">
                     <div class="flex flex-col gap-2">
@@ -214,7 +211,7 @@
                       @if (includeDirectManager()) {
                         <app-searchable-select
                           class="mb-4"
-                          [options]="approverOptions"
+                          [options]="approverOptions()"
                           [value]="directManagerId()"
                           placeholder="Select manager"
                           (valueChange)="directManagerId.set($event)"
@@ -233,7 +230,7 @@
                       @if (includeSponsor()) {
                         <app-searchable-select
                           class="mb-2"
-                          [options]="approverOptions"
+                          [options]="approverOptions()"
                           [value]="sponsorId()"
                           placeholder="Select sponsor"
                           (valueChange)="sponsorId.set($event)"
@@ -241,8 +238,26 @@
                       }
                     </div>
                   </div>
-                </td>
+                </ng-container>
               </tr>
+
+              <!-- Rows 2+: Dynamic approval steps -->
+              @for (step of approvalMatrix(); track step.approvalGroupName; let i = $index) {
+                <tr appApprovalStepRow [rowNumber]="i + 2">
+                  <span reviewedBy>{{ step.approvalGroupName }}</span>
+                  <div comments class="bg-base-200 rounded-lg px-3 py-2.5 flex flex-col gap-2">
+                    <span class="text-base-content/50 italic">N/A - Not yet started</span>
+                  </div>
+                  <ng-container signatures>
+                    @for (name of step.signatures; track name; let idx = $index) {
+                      <div class="flex flex-col gap-0.5">
+                        <span class="text-sm font-medium italic text-base-content/70">{{ name }}</span>
+                        <span class="text-xs italic text-base-content/60">Level {{ idx + 1 }} approver</span>
+                      </div>
+                    }
+                  </ng-container>
+                </tr>
+              }
             </tbody>
           </table>
         </div>
