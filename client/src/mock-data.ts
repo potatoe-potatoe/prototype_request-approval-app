@@ -1342,14 +1342,41 @@ export const mockTransactionTypes = [
   },
 ];
 
-export const mockManagers = [
-  'Santos, Maria',
-  'Reyes, Juan',
-  'Cruz, Ana',
-  'Garcia, Luis',
-  'Torres, Carmen',
-  'Boyle, Charles',
-  'Holt, Raymond',
-  'Cooper, Sheldon',
-  'Dalisay, Cardo'
+export const mockApprovers = [
+  {
+    id: 'a3f1e2d4-bc56-4789-9a01-2b3c4d5e6f70',
+    name: 'Santos, Maria',
+  },
+  {
+    id: 'b4e2f3c5-cd67-489a-ab12-3c4d5e6f7081',
+    name: 'Reyes, Juan',
+  },
+  {
+    id: 'c5d3e4b6-de78-49ab-bc23-4d5e6f708192',
+    name: 'Cruz, Ana',
+  },
+  {
+    id: 'd6c4f5a7-ef89-4abc-cd34-5e6f70819203',
+    name: 'Garcia, Luis',
+  },
+  {
+    id: 'e7b50698-f09a-4bcd-de45-6f7081920314',
+    name: 'Torres, Carmen',
+  },
+  {
+    id: 'f8a61709-019b-4cde-ef56-708192031425',
+    name: 'Boyle, Charles',
+  },
+  {
+    id: '09b7280a-12ac-4def-f067-819203142536',
+    name: 'Holt, Raymond',
+  },
+  {
+    id: '1ac8391b-23bd-4ef0-0178-920314253647',
+    name: 'Cooper, Sheldon',
+  },
+  {
+    id: '2bd9402c-34ce-4f01-1289-031425364758',
+    name: 'Dalisay, Cardo',
+  },
 ];

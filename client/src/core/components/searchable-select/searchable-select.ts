@@ -1,18 +1,19 @@
 import { Component, ElementRef, HostListener, inject, input, output, signal } from '@angular/core';
+import { DropdownOption } from '../../types/input-type';
 
 @Component({
   selector: 'app-searchable-select',
   imports: [],
   templateUrl: './searchable-select.html',
 })
-export class SearchableSelect {
+export class SearchableSelect<T extends string | number> {
   // TODO: Might need to be an input
   private static readonly PANEL_HEIGHT = 260; // In pixels
   private readonly el = inject(ElementRef<HTMLElement>);
 
-  options = input.required<string[]>();
-  value = input('');
-  valueChange = output<string>();
+  options = input.required<DropdownOption<T>[]>();
+  value = input<T | null>(null);
+  valueChange = output<T>();
   placeholder = input('Select option');
   size = input<'sm' | 'md'>('md');
 
@@ -28,10 +29,17 @@ export class SearchableSelect {
     }
   }
 
-  get filteredOptions(): string[] {
+  get selectedLabel(): string {
+    const v = this.value();
+    return v !== null
+      ? (this.options().find(o => o.id === v)?.label ?? '')
+      : '';
+  }
+
+  get filteredOptions(): DropdownOption<T>[] {
     const searchText = this.search().toLowerCase();
     return searchText
-      ? this.options().filter(o => o.toLowerCase().includes(searchText))
+      ? this.options().filter(o => o.label.toLowerCase().includes(searchText))
       : this.options();
   }
 
@@ -56,8 +64,8 @@ export class SearchableSelect {
     this.isOpen.set(true);
   }
 
-  protected select(option: string): void {
-    this.valueChange.emit(option);
+  protected select(id: T): void {
+    this.valueChange.emit(id);
     this.search.set('');
     this.isOpen.set(false);
   }

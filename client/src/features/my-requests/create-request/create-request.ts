@@ -2,12 +2,13 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { amountOptions, Fund, ReviewType, reviewTypes, TransactionType } from '../../../shared/types/request-type';
-import { mockApprovalMatrix, mockManagers, mockTransactionTypes } from '../../../mock-data';
+import { mockApprovalMatrix, mockApprovers, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
 import { ApprovalReference, ApprovalStep } from '../../../shared/types/approval-type';
 import { SearchableSelect } from '../../../core/components/searchable-select/searchable-select';
 import { Toggle } from '../../../core/components/toggle/toggle';
 import { ApprovalStepRow } from './approval-step-row/approval-step-row';
+import { DropdownOption } from '../../../core/types/input-type';
 
 @Component({
   selector: 'app-create-request',
@@ -35,7 +36,7 @@ export class CreateRequest implements OnInit {
   });
 
   protected transactionTypes = signal<TransactionType[]>([]);
-  protected approverOptions = signal<string[]>([]);
+  protected approverOptions = signal<DropdownOption[]>([]);
   protected approvalMatrix = signal<ApprovalStep[]>([]);
 
   protected newFundName = signal('');
@@ -44,9 +45,9 @@ export class CreateRequest implements OnInit {
 
   // Not yet converted
   protected includeDirectManager = signal(false);
-  protected directManagerId = signal('');
+  protected directManagerId = signal<string | null>(null);
   protected includeSponsor = signal(false);
-  protected sponsorId = signal('');
+  protected sponsorId = signal<string | null>(null);
 
   ngOnInit(): void {
     this.loadDropdownData();
@@ -56,7 +57,9 @@ export class CreateRequest implements OnInit {
   // TODO: Fetch from the backend
   protected loadDropdownData(): void {
     this.transactionTypes.set(mockTransactionTypes);
-    this.approverOptions.set(mockManagers);
+    this.approverOptions.set(mockApprovers.map(
+      a => ({ id: a.id, label: a.name }))
+    );
   }
 
   // TODO: Fetch from the backend
@@ -66,12 +69,12 @@ export class CreateRequest implements OnInit {
 
   protected toggleDirectManager(isToggled: boolean): void {
     this.includeDirectManager.set(isToggled);
-    if (!isToggled) this.directManagerId.set('');
+    if (!isToggled) this.directManagerId.set(null);
   }
 
   protected toggleSponsor(isToggled: boolean): void {
     this.includeSponsor.set(isToggled);
-    if (!isToggled) this.sponsorId.set('');
+    if (!isToggled) this.sponsorId.set(null);
   }
 
   protected goBack(): void {
