@@ -1317,4 +1317,8 @@ export const mockManagers = [
   'Cruz, Ana',
   'Garcia, Luis',
   'Torres, Carmen',
+  'Boyle, Charles',
+  'Holt, Raymond',
+  'Cooper, Sheldon',
+  'Dalisay, Cardo'
 ];

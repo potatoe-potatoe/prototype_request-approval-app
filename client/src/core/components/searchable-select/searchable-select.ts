@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, inject, Input, Output, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-searchable-select',
@@ -6,41 +6,50 @@ import { Component, ElementRef, EventEmitter, HostListener, inject, Input, Outpu
   templateUrl: './searchable-select.html',
 })
 export class SearchableSelect {
-  private static readonly PANEL_HEIGHT = 260;
-
+  // TODO: Might need to be an input
+  private static readonly PANEL_HEIGHT = 260; // In pixels
   private readonly el = inject(ElementRef<HTMLElement>);
 
-  @Input({ required: true }) options: string[] = [];
-  @Input() value = '';
-  @Output() valueChange = new EventEmitter<string>();
-  @Input() placeholder = 'Select option';
-  @Input() size: 'sm' | 'md' = 'md';
+  options = input.required<string[]>();
+  value = input('');
+  valueChange = output<string>();
+  placeholder = input('Select option');
+  size = input<'sm' | 'md'>('md');
 
   protected search = signal('');
   protected isOpen = signal(false);
   protected panelStyle = signal<Record<string, string>>({});
 
   @HostListener('document:click', ['$event.target'])
-  onDocumentClick(target: EventTarget | null): void {
+  closeDropdown(target: EventTarget | null): void {
     if (!this.el.nativeElement.contains(target)) {
       this.isOpen.set(false);
+      this.search.set('');
     }
   }
 
   get filteredOptions(): string[] {
-    const q = this.search().toLowerCase();
-    return q ? this.options.filter(o => o.toLowerCase().includes(q)) : this.options;
+    const searchText = this.search().toLowerCase();
+    return searchText
+      ? this.options().filter(o => o.toLowerCase().includes(searchText))
+      : this.options();
   }
 
   protected open(trigger: HTMLElement): void {
-    if (this.isOpen()) { this.isOpen.set(false); return; }
+    if (this.isOpen()) {
+      this.isOpen.set(false);
+      return;
+    }
+
     const rect = trigger.getBoundingClientRect();
     const spaceBelow = window.innerHeight - rect.bottom;
+
     this.panelStyle.set({
       position: 'fixed',
       ...(spaceBelow >= SearchableSelect.PANEL_HEIGHT
         ? { top: `${rect.bottom}px` }
-        : { bottom: `${window.innerHeight - rect.top}px` }),
+        : { bottom: `${window.innerHeight - rect.top}px` }
+      ),
       left: `${rect.left}px`,
       width: `${rect.width}px`,
     });
