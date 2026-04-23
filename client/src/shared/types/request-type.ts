@@ -17,6 +17,7 @@ export interface ApprovalRequest {
 }
 
 export interface Fund {
+  id?: number;
   name: string;
   amount: number;
 }

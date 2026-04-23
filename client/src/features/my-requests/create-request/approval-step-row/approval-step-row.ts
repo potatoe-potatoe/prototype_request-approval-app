@@ -20,7 +20,7 @@ export class ApprovalStepRow {
   get hostClass(): string {
     const base = '[&>td]:align-top [&>td]:border-b-0';
     return this.rowNumber() > 1
-      ? `${base} [&>td]:border-t [&>td]:border-base-300`
+      ? `${base} [&>td]:border-t [&>td]:border-base-content/5`
       : base;
   }
 }
