@@ -11,18 +11,13 @@ export interface ApprovalRequest {
   createdOn: string;
   lastUpdatedOn: string;
   reviewTypes: ReviewType[];
-  funds: SelectedFund[];
+  funds: Fund[];
   transactionType: string;
   amount: number;
 }
 
 export interface Fund {
-  id: number;
   name: string;
-}
-
-export interface SelectedFund {
-  id: number;
   amount: number;
 }
 

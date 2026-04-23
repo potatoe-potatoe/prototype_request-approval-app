@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { amountOptions, ReviewType, reviewTypes, SelectedFund, TransactionType } from '../../../shared/types/request-type';
-import { mockApprovalMatrix, mockApprovers, mockFunds, mockTransactionTypes } from '../../../mock-data';
+import { amountOptions, Fund, ReviewType, reviewTypes, TransactionType } from '../../../shared/types/request-type';
+import { mockApprovalMatrix, mockApprovers, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
 import { ApprovalReference, ApprovalStep } from '../../../shared/types/approval-type';
 import { SearchableSelect } from '../../../core/components/searchable-select/searchable-select';
@@ -28,7 +28,7 @@ export class CreateRequest implements OnInit {
     vendor: [''],
     transactionType: [''],
     amountRange: [''],
-    funds: this.fb.nonNullable.control<SelectedFund[]>([]),
+    funds: this.fb.nonNullable.control<Fund[]>([]),
     comment: this.fb.group({
       text: [''],
       references: this.fb.nonNullable.control<ApprovalReference[]>([]),
@@ -41,10 +41,9 @@ export class CreateRequest implements OnInit {
 
   protected transactionTypes = signal<TransactionType[]>([]);
   protected approverOptions = signal<DropdownOption[]>([]);
-  protected fundOptions = signal<DropdownOption<number>[]>([]);
   protected approvalMatrix = signal<ApprovalStep[]>([]);
 
-  protected newFundId = signal<number | null>(null);
+  protected newFundName = signal('');
   protected newFundAmount = signal<number | null>(null);
   protected editingFundIndex = signal<number | null>(null);
 
@@ -59,8 +58,9 @@ export class CreateRequest implements OnInit {
   // TODO: Fetch from the backend
   protected loadDropdownData(): void {
     this.transactionTypes.set(mockTransactionTypes);
-    this.approverOptions.set(mockApprovers.map(a => ({ id: a.id, label: a.name })));
-    this.fundOptions.set(mockFunds.map(f => ({ id: f.id, label: f.name })));
+    this.approverOptions.set(mockApprovers.map(
+      a => ({ id: a.id, label: a.name }))
+    );
   }
 
   // TODO: Fetch from the backend
@@ -103,72 +103,61 @@ export class CreateRequest implements OnInit {
     }
   }
 
-  /**
-   * Removes selected funds from the dropdown options, since
-   *  a fund can only be selected once.
-   */
-  get availableFundOptions(): DropdownOption<number>[] {
-    const selectedIds = new Set(
-      this.form.controls.funds.value
-        .filter((_, i) => i !== this.editingFundIndex())
-        .map(f => f.id)
-    );
-    return this.fundOptions().filter(o => !selectedIds.has(o.id));
-  }
-
-  getFundName(id: number): string {
-    return this.fundOptions().find(o => o.id === id)?.label ?? '';
-  }
-
   protected hasFundInput(): boolean {
-    return this.newFundId() !== null && this.newFundAmount() !== null;
+    const name = this.newFundName().trim();
+    const amount = this.newFundAmount();
+    const hasName = (name && name.length > 0) as boolean;
+    const hasAmount = !!amount as boolean;
+    return hasName && hasAmount;
   }
 
   protected addFund(): void {
     if (!this.hasFundInput()) return;
-    const id = this.newFundId()!;
-    const amount = this.newFundAmount()!;
+    const name = this.newFundName().trim();
+    const amount = this.newFundAmount() ?? 0;
     const index = this.editingFundIndex();
     const currentFunds = this.form.controls.funds.value;
 
-    if (index != null) this.updateFund(index, id, amount);
+    if (index != null) this.updateFund(index, name, amount);
     else {
-      this.form.controls.funds.setValue([...currentFunds, { id, amount }]);
+      this.form.controls.funds.setValue([...currentFunds, { name, amount }]);
     }
 
-    this.newFundId.set(null);
+    this.newFundName.set('');
     this.newFundAmount.set(null);
   }
 
-  private updateFund(index: number, id: number, amount: number): void {
+  private updateFund(index: number, name: string, amount: number): void {
     const currentFunds = this.form.controls.funds.value;
     this.form.controls.funds.setValue(
-      currentFunds.map((f, i) => i === index ? { id, amount } : f)
+      currentFunds.map((f, i) => i === index ? { name, amount }: f)
     );
     this.editingFundIndex.set(null);
   }
 
   protected removeFund(index: number): void {
     const currentFunds = this.form.controls.funds.value;
-    this.form.controls.funds.setValue(currentFunds.filter((_, i) => i !== index));
+    this.form.controls.funds.setValue(
+      currentFunds.filter((_: Fund, i: number) => i !== index)
+    );
 
     if (this.editingFundIndex() === index) {
       this.editingFundIndex.set(null);
-      this.newFundId.set(null);
+      this.newFundName.set('');
       this.newFundAmount.set(null);
     }
   }
 
   protected editFund(index: number): void {
     const fund = this.form.controls.funds.value[index];
-    this.newFundId.set(fund.id);
+    this.newFundName.set(fund.name);
     this.newFundAmount.set(fund.amount);
     this.editingFundIndex.set(index);
   }
 
   protected cancelEditFund(): void {
     this.editingFundIndex.set(null);
-    this.newFundId.set(null);
+    this.newFundName.set('');
     this.newFundAmount.set(null);
   }
 
