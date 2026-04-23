@@ -57,14 +57,14 @@ export class CreateRequest implements OnInit {
   }
 
   // TODO: Fetch from the backend
-  protected loadDropdownData(): void {
+  private loadDropdownData(): void {
     this.transactionTypes.set(mockTransactionTypes);
     this.approverOptions.set(mockApprovers.map(a => ({ id: a.id, label: a.name })));
     this.fundOptions.set(mockFunds.map(f => ({ id: f.id, label: f.name })));
   }
 
   // TODO: Fetch from the backend
-  protected loadApprovalMatrix(): void {
+  private loadApprovalMatrix(): void {
     this.approvalMatrix.set(mockApprovalMatrix.slice(1));
   }
 
