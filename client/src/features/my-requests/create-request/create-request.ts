@@ -56,7 +56,7 @@ export class CreateRequest implements OnInit {
   }
 
   // TODO: Fetch from the backend
-  protected loadDropdownData(): void {
+  private loadDropdownData(): void {
     this.transactionTypes.set(mockTransactionTypes);
     this.approverOptions.set(mockApprovers.map(
       a => ({ id: a.id, label: a.name }))
@@ -64,8 +64,17 @@ export class CreateRequest implements OnInit {
   }
 
   // TODO: Fetch from the backend
-  protected loadApprovalMatrix(): void {
+  private loadApprovalMatrix(): void {
     this.approvalMatrix.set(mockApprovalMatrix.slice(1));
+  }
+
+  protected goBack(): void {
+    this.location.back();
+  }
+
+  // TODO: Update logic for saving
+  protected saveDraft(): void {
+    console.log(this.form.value);
   }
 
   protected toggleDirectManager(isToggled: boolean): void {
@@ -81,15 +90,6 @@ export class CreateRequest implements OnInit {
 
   get approverFormGroup() {
     return this.form.controls.initialApprovers;
-  }
-
-  protected goBack(): void {
-    this.location.back();
-  }
-
-  // TODO: Update logic for saving
-  protected saveDraft(): void {
-    console.log(this.form.value);
   }
 
   get isOthersSelected(): boolean {

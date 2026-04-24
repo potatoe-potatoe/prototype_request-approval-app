@@ -19,11 +19,24 @@ export class ViewRequest implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.requestsService.getById(id).subscribe({
-        next: (request) => this.request.set(request),
-      });
+    this.loadRequest(id);
+  }
+
+  // TODO: Fetch from the backend
+  private loadRequest(id: string | null): void {
+    if (!id) {
+      // TODO: Add error handling, maybe a 404 page
+      return;
     }
+
+    this.requestsService.getById(id).subscribe({
+      next: (request) => {
+        if (request) this.request.set(request);
+        else {
+          // TODO: Add error handling, maybe a 404 page
+        }
+      },
+    });
   }
 
   protected goBack(): void {
