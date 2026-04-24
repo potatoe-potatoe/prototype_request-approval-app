@@ -21,7 +21,13 @@ export const routes: Routes = [
       },
       { path: 'all', component: AllRequests },
       { path: 'new', component: CreateRequest },
-      { path: ':id', component: ViewRequest }
+      {
+        path: ':id',
+        children: [
+          { path: '', component: ViewRequest },
+          { path: 'edit', component: CreateRequest }
+        ]
+      }
     ]
   }
 ];

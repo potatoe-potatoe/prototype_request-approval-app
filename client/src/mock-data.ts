@@ -1,5 +1,6 @@
 // TODO: Remove this file once endpoint or mock server is established
-import { RequestStatus, ReviewType, ApprovalRequest } from "./shared/types/request-type";
+import { AmountOption, ApprovalRequest, DraftRequest, RequestStatus, ReviewType } from "./shared/types/request-type";
+import { ApprovalComment } from "./shared/types/approval-type";
 
 export const mockRequests: ApprovalRequest[] = [
   {
@@ -1292,50 +1293,50 @@ export const mockApprovalMatrix = [
 ];
 
 export const mockTransactionTypes = [
-  { name: 'Purchase Order', children: [] },
-  { name: 'Service Contract', children: [] },
-  { name: 'Consultancy Agreement', children: [] },
-  { name: 'Lease Agreement', children: [] },
-  { name: 'Memorandum of Agreement', children: [] },
-  { name: 'Request for Quotation', children: [] },
-  { name: 'Delivery Order', children: [] },
-  { name: 'Work Order', children: [] },
-  { name: 'Job Order', children: [] },
-  { name: 'Supply Agreement', children: [] },
+  { id: 1, name: 'Purchase Order', children: [] },
+  { id: 2, name: 'Service Contract', children: [] },
+  { id: 3, name: 'Consultancy Agreement', children: [] },
+  { id: 4, name: 'Lease Agreement', children: [] },
+  { id: 5, name: 'Memorandum of Agreement', children: [] },
+  { id: 6, name: 'Request for Quotation', children: [] },
+  { id: 7, name: 'Delivery Order', children: [] },
+  { id: 8, name: 'Work Order', children: [] },
+  { id: 9, name: 'Job Order', children: [] },
+  { id: 10, name: 'Supply Agreement', children: [] },
   {
-    name: 'Equipment',
+    id: 11, name: 'Equipment',
     children: [
-      { name: 'Rental', children: [] },
-      { name: 'Purchase', children: [] },
-      { name: 'Leasing', children: [] },
+      { id: 12, name: 'Rental', children: [] },
+      { id: 13, name: 'Purchase', children: [] },
+      { id: 14, name: 'Leasing', children: [] },
     ],
   },
   {
-    name: 'IT',
+    id: 15, name: 'IT',
     children: [
-      { name: 'Software License', children: [] },
-      { name: 'SaaS Subscription', children: [] },
-      { name: 'Hardware Procurement', children: [] },
+      { id: 16, name: 'Software License', children: [] },
+      { id: 17, name: 'SaaS Subscription', children: [] },
+      { id: 18, name: 'Hardware Procurement', children: [] },
       {
-        name: 'Maintenance',
+        id: 19, name: 'Maintenance',
         children: [
-          { name: 'Software', children: [] },
-          { name: 'Hardware', children: [] },
+          { id: 20, name: 'Software', children: [] },
+          { id: 21, name: 'Hardware', children: [] },
         ],
       },
     ],
   },
   {
-    name: 'Infrastructure',
+    id: 22, name: 'Infrastructure',
     children: [
-      { name: 'Construction', children: [] },
-      { name: 'Renovation', children: [] },
+      { id: 23, name: 'Construction', children: [] },
+      { id: 24, name: 'Renovation', children: [] },
       {
-        name: 'Repair',
+        id: 25, name: 'Repair',
         children: [
-          { name: 'Civil', children: [] },
-          { name: 'Electrical', children: [] },
-          { name: 'Mechanical', children: [] },
+          { id: 26, name: 'Civil', children: [] },
+          { id: 27, name: 'Electrical', children: [] },
+          { id: 28, name: 'Mechanical', children: [] },
         ],
       },
     ],
@@ -1343,40 +1344,36 @@ export const mockTransactionTypes = [
 ];
 
 export const mockApprovers = [
-  {
-    id: 'a3f1e2d4-bc56-4789-9a01-2b3c4d5e6f70',
-    name: 'Santos, Maria',
-  },
-  {
-    id: 'b4e2f3c5-cd67-489a-ab12-3c4d5e6f7081',
-    name: 'Reyes, Juan',
-  },
-  {
-    id: 'c5d3e4b6-de78-49ab-bc23-4d5e6f708192',
-    name: 'Cruz, Ana',
-  },
-  {
-    id: 'd6c4f5a7-ef89-4abc-cd34-5e6f70819203',
-    name: 'Garcia, Luis',
-  },
-  {
-    id: 'e7b50698-f09a-4bcd-de45-6f7081920314',
-    name: 'Torres, Carmen',
-  },
-  {
-    id: 'f8a61709-019b-4cde-ef56-708192031425',
-    name: 'Boyle, Charles',
-  },
-  {
-    id: '09b7280a-12ac-4def-f067-819203142536',
-    name: 'Holt, Raymond',
-  },
-  {
-    id: '1ac8391b-23bd-4ef0-0178-920314253647',
-    name: 'Cooper, Sheldon',
-  },
-  {
-    id: '2bd9402c-34ce-4f01-1289-031425364758',
-    name: 'Dalisay, Cardo',
-  },
+  { id: 1, name: 'Santos, Maria' },
+  { id: 2, name: 'Reyes, Juan' },
+  { id: 3, name: 'Cruz, Ana' },
+  { id: 4, name: 'Garcia, Luis' },
+  { id: 5, name: 'Torres, Carmen' },
+  { id: 6, name: 'Boyle, Charles' },
+  { id: 7, name: 'Holt, Raymond' },
+  { id: 8, name: 'Cooper, Sheldon' },
+  { id: 9, name: 'Dalisay, Cardo' },
 ];
+
+export const mockDraftRequest: DraftRequest = {
+  id: 'f3a1c2d4-e5b6-7890-abcd-ef1234567890',
+  subject: 'Office Chairs Procurement — Q3',
+  vendor: 'UrbanFurniture PH',
+  reviewType: ReviewType.Contract,
+  funds: [
+    { id: 1, name: 'furniture', amount: 45000 },
+    { id: 2, name: 'office', amount: 12000 },
+  ],
+  transactionType: { id: 1, name: 'Purchase Order' },
+  amountBracket: AmountOption.UpTo1M,
+  preapproverManager: { id: 4, displayName: 'Garcia, Luis' },
+  comment: {
+    commenter: 'De Marco, Jose',
+    commentedAt: '2026-04-24T10:15:00',
+    comment: 'Requesting procurement of ergonomic office chairs for the operations floor. See attached reference for the selected model.',
+    references: [
+      { label: 'Product Catalog', url: 'https://www.google.com' },
+    ],
+  } as ApprovalComment,
+  createdOn: '2026-04-24',
+};

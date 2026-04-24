@@ -1,6 +1,36 @@
+import { ApprovalComment, Approver } from "./approval-type";
+
 // ----------------------------------------
 //  Interfaces
 // ----------------------------------------
+export interface DraftRequest {
+  id: string; // publicId
+  subject: string;
+  vendor?: string;
+  reviewType: ReviewType;
+  reviewTypeOther?: string;
+  funds: SelectedFund[];
+  transactionType?: SelectedTransactionType;
+  amountBracket?: AmountOption;
+  preapproverManager?: Approver;
+  preapproverSponsor?: Approver;
+  comment?: ApprovalComment;
+  createdOn: string;
+}
+
+export interface SelectedTransactionType {
+  id: number;
+  name: string;
+}
+
+export interface SelectedFund {
+  id: number;
+  name: string;
+  amount: number;
+}
+
+// TODO: ALl those interfaces up there -- Check if they can be merged with their counterparts below.
+
 export interface ApprovalRequest {
   id: string;
   controlNo: string;
@@ -28,6 +58,7 @@ export interface RequestFilters {
 }
 
 export interface TransactionType {
+  id: number;
   name: string;
   children: TransactionType[];
 }

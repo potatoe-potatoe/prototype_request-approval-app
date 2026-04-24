@@ -29,3 +29,8 @@ export interface ApprovalReference {
   label: string;
   url: string;
 }
+
+export interface Approver {
+  id: number;
+  displayName: string;
+}
