@@ -3,15 +3,19 @@
   <div class="bg-base-100 flex flex-col gap-3 px-6 pt-6 pb-4">
     <div class="flex items-start gap-2">
       <div class="flex flex-col gap-1 flex-1">
-        <input
-          type="text"
-          class="input input-bordered text-2xl font-semibold w-full"
-          placeholder="Enter subject"
-          formControlName="subject"
-        />
+        @if (isSubmitted) {
+          <h1 class="text-2xl font-bold">{{ request()!.subject }}</h1>
+        } @else {
+          <input
+            type="text"
+            class="input input-bordered text-2xl font-semibold w-full"
+            placeholder="Enter subject"
+            formControlName="subject"
+          />
+        }
         <div class="flex items-center gap-2">
           <span class="text-sm text-base-content/60">Control No.</span>
-          <span class="text-sm text-base-content/30">N/A, generated upon submission</span>
+          <span class="text-sm text-base-content/30">{{ controlNumber }}</span>
         </div>
       </div>
       <div class="flex gap-2 shrink-0">
@@ -111,63 +115,81 @@
       <!-- Row 2: Transaction Type nested dropdown  -->
       <div class="flex flex-col gap-1.5">
         <label class="text-sm font-medium text-base-content/60">Transaction Type</label>
-        <div class="dropdown w-full">
-          <div tabindex="0" role="button" class="select select-bordered w-full flex items-center">
-            @if (form.controls.transactionTypeId.value) {
-              <span>{{ selectedTransactionTypeName }}</span>
-            } @else {
-              <span class="text-base-content/40">Select transaction type</span>
-            }
-          </div>
-          <ul tabindex="0" class="dropdown-content bg-base-100 rounded-box border border-base-300 shadow z-10 w-full mt-1 p-1 max-h-60 overflow-y-auto flex-nowrap">
-            @for (item of transactionTypes(); track item.id) {
-              @if (item.children.length === 0) {
-                <li>
-                  <button class="w-full flex items-center gap-1.5 px-3 py-2 text-sm rounded-btn hover:bg-base-300" (click)="selectTransactionType(item.id)">
-                    <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="form.controls.transactionTypeId.value !== item.id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
-                    <span>{{ item.name }}</span>
-                  </button>
-                </li>
+        @if (hasApprovals) {
+          <input
+            type="text"
+            class="input input-bordered w-full cursor-not-allowed"
+            [placeholder]="request()!.transactionType?.name || 'Error fetching data'"
+            disabled
+          />
+        } @else {
+          <div class="dropdown w-full">
+            <div tabindex="0" role="button" class="select select-bordered w-full flex items-center">
+              @if (form.controls.transactionTypeId.value) {
+                <span>{{ selectedTransactionTypeName }}</span>
               } @else {
-                <li class="px-3 pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wide text-base-content/40 select-none">{{ item.name }}</li>
-                @for (child of item.children; track child.id) {
-                  @if (child.children.length === 0) {
-                    <li>
-                      <button class="w-full flex items-center gap-1.5 pl-5 pr-3 py-2 text-sm rounded-btn hover:bg-base-300" (click)="selectTransactionType(child.id)">
-                        <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="form.controls.transactionTypeId.value !== child.id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
-                        <span>{{ child.name }}</span>
-                      </button>
-                    </li>
-                  } @else {
-                    <li class="pl-5 pr-3 pt-1.5 pb-0.5 text-xs font-semibold text-base-content/40 select-none">{{ child.name }}</li>
-                    @for (grandchild of child.children; track grandchild.id) {
+                <span class="text-base-content/40">Select transaction type</span>
+              }
+            </div>
+            <ul tabindex="0" class="dropdown-content bg-base-100 rounded-box border border-base-300 shadow z-10 w-full mt-1 p-1 max-h-60 overflow-y-auto flex-nowrap">
+              @for (item of transactionTypes(); track item.id) {
+                @if (item.children.length === 0) {
+                  <li>
+                    <button class="w-full flex items-center gap-1.5 px-3 py-2 text-sm rounded-btn hover:bg-base-300" (click)="selectTransactionType(item.id)">
+                      <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="form.controls.transactionTypeId.value !== item.id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+                      <span>{{ item.name }}</span>
+                    </button>
+                  </li>
+                } @else {
+                  <li class="px-3 pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wide text-base-content/40 select-none">{{ item.name }}</li>
+                  @for (child of item.children; track child.id) {
+                    @if (child.children.length === 0) {
                       <li>
-                        <button class="w-full flex items-center gap-1.5 pl-9 pr-3 py-2 text-sm rounded-btn hover:bg-base-300" (click)="selectTransactionType(grandchild.id)">
-                          <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="form.controls.transactionTypeId.value !== grandchild.id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
-                          <span>{{ grandchild.name }}</span>
+                        <button class="w-full flex items-center gap-1.5 pl-5 pr-3 py-2 text-sm rounded-btn hover:bg-base-300" (click)="selectTransactionType(child.id)">
+                          <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="form.controls.transactionTypeId.value !== child.id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+                          <span>{{ child.name }}</span>
                         </button>
                       </li>
+                    } @else {
+                      <li class="pl-5 pr-3 pt-1.5 pb-0.5 text-xs font-semibold text-base-content/40 select-none">{{ child.name }}</li>
+                      @for (grandchild of child.children; track grandchild.id) {
+                        <li>
+                          <button class="w-full flex items-center gap-1.5 pl-9 pr-3 py-2 text-sm rounded-btn hover:bg-base-300" (click)="selectTransactionType(grandchild.id)">
+                            <svg class="w-4 h-4 shrink-0 text-primary" [class.invisible]="form.controls.transactionTypeId.value !== grandchild.id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            <span>{{ grandchild.name }}</span>
+                          </button>
+                        </li>
+                      }
                     }
                   }
                 }
               }
-            }
-          </ul>
-        </div>
+            </ul>
+          </div>
+        }
       </div>
 
       <!-- Row 2: Amount  -->
       <div class="flex flex-col gap-1.5">
         <label class="text-sm font-medium text-base-content/60">Amount</label>
-        <select
-          [class]="'select select-bordered w-full' + (!form.controls.amountRange.value ? ' text-base-content/40' : '')"
-          formControlName="amountRange"
-        >
-          <option class="text-base-content/40" value="" disabled>Select amount</option>
-          @for (range of amountRangeOptions; track range) {
-            <option class="text-base-content" [value]="range">{{ range }}</option>
-          }
-        </select>
+        @if (hasApprovals) {
+          <input
+            type="text"
+            class="input input-bordered w-full cursor-not-allowed"
+            [placeholder]="request()!.amountBracket || 'Error fetching data'"
+            disabled
+          />
+        } @else {
+          <select
+            [class]="'select select-bordered w-full' + (!form.controls.amountRange.value ? ' text-base-content/40' : '')"
+            formControlName="amountRange"
+          >
+            <option class="text-base-content/40" value="" disabled>Select amount</option>
+            @for (range of amountRangeOptions; track range) {
+              <option class="text-base-content" [value]="range">{{ range }}</option>
+            }
+          </select>
+        }
       </div>
 
     </div>
@@ -202,46 +224,67 @@
                   <div class="flex flex-col gap-0.5">
                     <span class="text-sm font-medium text-base-content/70 italic">De Marco, Jose</span>
                   </div>
-                  <div class="flex flex-col gap-2" [formGroup]="approverFormGroup">
+                  @if (hasApprovals) {
                     <div class="flex flex-col gap-2">
-                      <label class="flex items-center gap-2 cursor-pointer">
-                        <app-toggle
-                          size="sm"
-                          [checked]="includeDirectManager()"
-                          (checkedChange)="toggleDirectManager($event)"
+                      @if (request()!.preapproverManager) {
+                        <input
+                          type="text"
+                          class="input input-bordered text-2xl font-semibold w-full cursor-not-allowed"
+                          [placeholder]="request()!.preapproverManager"
+                          disabled
                         />
-                        <span class="text-sm">Include direct manager</span>
-                      </label>
-                      @if (includeDirectManager()) {
-                        <app-searchable-select
-                          class="mb-4"
-                          [options]="approverOptions()"
-                          [value]="approverFormGroup.controls.directManagerId.value"
-                          placeholder="Select manager"
-                          (valueChange)="approverFormGroup.controls.directManagerId.setValue($event)"
+                      }
+                      @if (request()!.preapproverSponsor) {
+                        <input
+                          type="text"
+                          class="input input-bordered text-2xl font-semibold w-full cursor-not-allowed"
+                          [placeholder]="request()!.preapproverSponsor"
+                          disabled
                         />
                       }
                     </div>
-                    <div class="flex flex-col gap-2">
-                      <label class="flex items-center gap-2 cursor-pointer">
-                        <app-toggle
-                          size="sm"
-                          [checked]="includeSponsor()"
-                          (checkedChange)="toggleSponsor($event)"
-                        />
-                        <span class="text-sm">Include sponsor</span>
-                      </label>
-                      @if (includeSponsor()) {
-                        <app-searchable-select
-                          class="mb-2"
-                          [options]="approverOptions()"
-                          [value]="approverFormGroup.controls.sponsorId.value"
-                          placeholder="Select sponsor"
-                          (valueChange)="approverFormGroup.controls.sponsorId.setValue($event)"
-                        />
-                      }
+                  } @else {
+                    <div class="flex flex-col gap-2" [formGroup]="approverFormGroup">
+                      <div class="flex flex-col gap-2">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                          <app-toggle
+                            size="sm"
+                            [checked]="includeDirectManager()"
+                            (checkedChange)="toggleDirectManager($event)"
+                          />
+                          <span class="text-sm">Include direct manager</span>
+                        </label>
+                        @if (includeDirectManager()) {
+                          <app-searchable-select
+                            class="mb-4"
+                            [options]="approverOptions()"
+                            [value]="approverFormGroup.controls.directManagerId.value"
+                            placeholder="Select manager"
+                            (valueChange)="approverFormGroup.controls.directManagerId.setValue($event)"
+                          />
+                        }
+                      </div>
+                      <div class="flex flex-col gap-2">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                          <app-toggle
+                            size="sm"
+                            [checked]="includeSponsor()"
+                            (checkedChange)="toggleSponsor($event)"
+                          />
+                          <span class="text-sm">Include sponsor</span>
+                        </label>
+                        @if (includeSponsor()) {
+                          <app-searchable-select
+                            class="mb-2"
+                            [options]="approverOptions()"
+                            [value]="approverFormGroup.controls.sponsorId.value"
+                            placeholder="Select sponsor"
+                            (valueChange)="approverFormGroup.controls.sponsorId.setValue($event)"
+                          />
+                        }
+                      </div>
                     </div>
-                  </div>
+                  }
                 </ng-container>
               </tr>
 

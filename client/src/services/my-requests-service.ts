@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { ApprovalRequest, RequestStatus } from '../shared/types/request-type';
 import { PagedResult } from '../core/types/pagination-type';
-import { mockRequests } from '../mock-data';
+import { mockRequestsV2 } from '../mock-data';
 
 @Injectable({
   providedIn: 'root',
@@ -22,14 +22,14 @@ export class MyRequestsService {
   // TODO: Replace with real HTTP call when server is available
   private getRequests(
     statusList: RequestStatus[], searchText: string, page: number, pageSize: number
-  ): Observable<PagedResult<ApprovalRequest>> {
-    let filtered = mockRequests.filter(r => statusList.includes(r.status));
+  ): Observable<PagedResult<any>> { // TODO: Do not use 'any'
+    let filtered = mockRequestsV2.filter(r => statusList.includes(r.status));
 
     // Mock filtering
     if (searchText.trim()) {
       const term = searchText.trim().toLowerCase();
       filtered = filtered.filter(r =>
-        r.controlNo.toLowerCase().includes(term) ||
+        r.controlNumber.toLowerCase().includes(term) ||
         r.vendor.toLowerCase().includes(term) ||
         r.subject.toLowerCase().includes(term)
       );
@@ -41,7 +41,8 @@ export class MyRequestsService {
     const start = (page - 1) * pageSize;
     const data = filtered.slice(start, start + pageSize);
 
-    const result: PagedResult<ApprovalRequest> = {
+    // TODO: Do not use 'any'
+    const result: PagedResult<any> = {
       data,
       pagination: { currentPage: page, pageSize, totalItems, totalPages },
     };

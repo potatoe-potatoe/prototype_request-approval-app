@@ -5,6 +5,7 @@ import { ApprovalComment, Approver } from "./approval-type";
 // ----------------------------------------
 interface BaseEditRequest {
   id: string; // publicId UUID v4
+  status: RequestStatus;
   subject: string;
   reviewType: ReviewType;
   reviewTypeOther?: string;
@@ -21,9 +22,11 @@ export interface EditDraftRequest extends BaseEditRequest {
 }
 
 export interface EditSubmittedRequest extends BaseEditRequest {
+  controlNumber: string;
   vendor: string;
   transactionType: SelectedTransactionType;
   amountBracket: AmountOption;
+  hasApprovals: boolean;
 }
 
 // export interface DraftRequest {
@@ -82,15 +85,16 @@ export interface SelectedFund {
 // PreviewSubmittedRequest
 
 export interface ApprovalRequest {
+amountBracket: string|number;
   id: string;
-  controlNo: string;
+  controlNumber: string;
   vendor: string;
   subject: string;
   status: RequestStatus;
   currentStep: string;
   createdOn: string;
   lastUpdatedOn: string;
-  reviewTypes: ReviewType[];
+  reviewType: ReviewType;
   funds: Fund[];
   transactionType: string;
   amount: number;

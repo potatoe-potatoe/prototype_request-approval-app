@@ -1,17 +1,18 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { ApprovalRequest } from '../../types/request-type';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RequestsService } from '../../../services/requests-service';
 import { ApprovalTable } from './approval-table/approval-table';
 
 @Component({
   selector: 'app-view-request',
-  imports: [DecimalPipe, ApprovalTable],
+  imports: [DecimalPipe, ApprovalTable, RouterLink],
   templateUrl: './view-request.html',
 })
 export class ViewRequest implements OnInit {
-  protected request = signal<ApprovalRequest | null>(null);
+  
+  // TODO: Do not use 'any'
+  protected request = signal<any | null>(null);
 
   private route = inject(ActivatedRoute);
   private location = inject(Location);
@@ -41,5 +42,10 @@ export class ViewRequest implements OnInit {
 
   protected goBack(): void {
     this.location.back();
+  }
+
+  get requestEditLink(): string {
+    const id = this.request()!.id;
+    return `/requests/${id}/edit`;
   }
 }

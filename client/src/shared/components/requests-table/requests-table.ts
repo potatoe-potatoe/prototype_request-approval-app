@@ -1,16 +1,16 @@
 import { Component, input, output } from '@angular/core';
-import { ApprovalRequest } from '../../types/request-type';
 import { RouterLink } from "@angular/router";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-requests-table',
   templateUrl: './requests-table.html',
   styleUrl: './requests-table.css',
   host: { class: 'flex flex-col flex-1 min-h-0 gap-2' },
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe],
 })
 export class RequestsTable {
-  requests = input<ApprovalRequest[]>([]);
+  requests = input<any[]>([]); // TODO: Do not use 'any'
   currentPage = input<number>(1);
   totalPages = input<number>(1);
   pageSize = input<number>(10);

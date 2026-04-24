@@ -7,9 +7,9 @@
         <col class="w-[14%]">
         <col class="w-[19%]">
         <col class="w-[10%]">
-        <col class="w-[15%]">
-        <col class="w-[10%]">
-        <col class="w-[13%]">
+        <col class="w-[11%]">
+        <col class="w-[14%]">
+        <col class="w-[14%]">
         <col class="w-[8%]">
       </colgroup>
       <thead>
@@ -35,9 +35,9 @@
         <col class="w-[14%]">
         <col class="w-[19%]">
         <col class="w-[10%]">
-        <col class="w-[15%]">
-        <col class="w-[10%]">
-        <col class="w-[13%]">
+        <col class="w-[11%]">
+        <col class="w-[14%]">
+        <col class="w-[14%]">
         <col class="w-[8%]">
       </colgroup>
       <tbody>
@@ -46,15 +46,15 @@
             <td colspan="7" class="text-center text-base-content/40 py-12">No records found.</td>
           </tr>
         } @else {
-          @for (request of requests(); track request.controlNo) {
+          @for (request of requests(); track request) {
             <tr class="hover">
-              <td>{{ request.controlNo }}</td>
+              <td>{{ request.controlNumber || '-'}}</td>
               <td>{{ request.vendor }}</td>
               <td>{{ request.subject }}</td>
               <td>{{ request.status }}</td>
-              <td>{{ request.currentStep }}</td>
-              <td>{{ request.createdOn }}</td>
-              <td>{{ request.lastUpdatedOn }}</td>
+              <td>{{ request.currentStepName || '-' }}</td>
+              <td>{{ request.createdAt | date:'yyyy-MMM-dd hh:mm a' }}</td>
+              <td>{{ request.updatedAt | date:'yyyy-MMM-dd hh:mm a' }}</td>
               <td>
                 <button class="btn btn-ghost btn-square" [routerLink]="buildLink(request.id)">
                   <!-- arrow-top-right-on-square heroicon (outline) -->

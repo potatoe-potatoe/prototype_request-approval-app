@@ -8,11 +8,22 @@
       Back
     </button>
     @if (request(); as request) {
-      <div class="flex flex-col gap-1">
-        <h1 class="text-2xl font-bold">{{ request.subject }}</h1>
-        <div class="flex items-center gap-2">
-          <span class="text-sm text-base-content/60">Control No.</span>
-          <span class="text-sm">{{ request.controlNo || '—' }}</span>
+      <div class="flex items-start gap-2">
+        <div class="flex flex-col gap-1 flex-1">
+          <h1 class="text-2xl font-bold">{{ request.subject }}</h1>
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-base-content/60">Control No.</span>
+            <span class="text-sm text-base-content/30">{{ request.controlNumber || 'N/A, generated upon submission' }}</span>
+          </div>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <button class="btn btn-outline" [routerLink]="requestEditLink">
+            <!-- arrow-top-right-on-square heroicon (outline) -->
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16.8617 4.48667L18.5492 2.79917C19.2814 2.06694 20.4686 2.06694 21.2008 2.79917C21.9331 3.53141 21.9331 4.71859 21.2008 5.45083L10.5822 16.0695C10.0535 16.5981 9.40144 16.9868 8.68489 17.2002L6 18L6.79978 15.3151C7.01323 14.5986 7.40185 13.9465 7.93052 13.4178L16.8617 4.48667ZM16.8617 4.48667L19.5 7.12499M18 14V18.75C18 19.9926 16.9926 21 15.75 21H5.25C4.00736 21 3 19.9926 3 18.75V8.24999C3 7.00735 4.00736 5.99999 5.25 5.99999H10"/>
+            </svg>
+            Edit Request
+          </button>
         </div>
       </div>
     }
@@ -25,11 +36,14 @@
       <div class="flex flex-col gap-2">
         <span class="text-sm font-medium text-base-content/60">Review Type</span>
         <div class="flex flex-wrap gap-4">
-          @for (type of request!.reviewTypes; track type) {
+          <label class="flex items-center gap-2">
+            <span class="text-sm">{{ request.reviewType }}</span>
+          </label>
+          <!-- @for (type of request!.reviewTypes; track type) {
             <label class="flex items-center gap-2">
               <span class="text-sm">{{ type }}</span>
             </label>
-          }
+          } -->
         </div>
       </div>
 
@@ -52,12 +66,12 @@
       <!-- Row 3: Transaction Type, Amount -->
       <div class="flex flex-col gap-1">
         <span class="text-sm font-medium text-base-content/60">Transaction Type</span>
-        <span class="text-base">{{ request!.transactionType }}</span>
+        <span class="text-base">{{ request!.transactionType?.name }}</span>
       </div>
 
       <div class="flex flex-col gap-1">
         <span class="text-sm font-medium text-base-content/60">Amount</span>
-        <span class="text-base">{{ request!.amount | number }}</span>
+        <span class="text-base">{{ request!.amountBracket }}</span>
       </div>
     </div>
 

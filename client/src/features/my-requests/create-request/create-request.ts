@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { amountOptions, EditDraftRequest, Fund, ReviewType, reviewTypes, TransactionType } from '../../../shared/types/request-type';
-import { mockApprovalMatrix, mockApprovers, mockEditDraftRequest, mockTransactionTypes } from '../../../mock-data';
+import { amountOptions, EditDraftRequest, EditSubmittedRequest, Fund, RequestStatus, ReviewType, reviewTypes, TransactionType } from '../../../shared/types/request-type';
+import { mockApprovalMatrix, mockApprovers, mockRequestsV2, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
 import { ApprovalReference, ApprovalStep } from '../../../shared/types/approval-type';
 import { SearchableSelect } from '../../../core/components/searchable-select/searchable-select';
@@ -21,7 +21,7 @@ enum InputMode {
   imports: [DecimalPipe, CommentEditor, ReactiveFormsModule, SearchableSelect, Toggle, ApprovalStepRow],
   templateUrl: './create-request.html',
 })
-export class CreateRequest implements OnInit {
+export class CreateRequest<T extends EditDraftRequest | EditSubmittedRequest> implements OnInit {
   private readonly location = inject(Location);
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(ActivatedRoute);
@@ -58,7 +58,7 @@ export class CreateRequest implements OnInit {
   protected includeSponsor = signal(false);
 
   protected mode = signal<InputMode>(InputMode.Create);
-  protected request = signal<EditDraftRequest | null>(null);
+  protected request = signal<T | null>(null);
 
   ngOnInit(): void {
     const id = this.router.snapshot.paramMap.get('id');
@@ -264,14 +264,35 @@ export class CreateRequest implements OnInit {
     return this.mode() === InputMode.Edit;
   }
 
+  get isDraft(): boolean {
+    return this.isEditMode &&
+      this.request()!.status === RequestStatus.Draft;
+  }
+
+  get isSubmitted(): boolean {
+    return this.isEditMode &&
+      this.request()!.status !== RequestStatus.Draft;
+  }
+
+  get controlNumber(): string {
+    return this.isSubmitted
+      ? (this.request() as EditSubmittedRequest).controlNumber
+      : 'N/A, generated upon submission';
+  }
+
+  get hasApprovals(): boolean {
+    return this.isSubmitted &&
+      ((this.request() as EditSubmittedRequest).hasApprovals);
+  }
+
   private setEditMode(id: string | null): void {
     if (!id) return;
     this.mode.set(InputMode.Edit);
-    this.loadRequest();
+    this.loadRequest(id);
   }
 
   // TODO: Fetch from the backend
-  private loadRequest(): void {
+  private loadRequest(id: string): void {
     // <endpoint>.subcscribe({
     //   next: request => {
     //     set request
@@ -279,19 +300,20 @@ export class CreateRequest implements OnInit {
     //     set toggles
     //   }
     // });
-    this.request.set(mockEditDraftRequest);
-    this.initFormData(mockEditDraftRequest);
-    this.initToggles(mockEditDraftRequest);
+    const request = mockRequestsV2.find(r => r.id === id) as unknown as T;
+    this.request.set(request);
+    this.initFormData(request);
+    this.initToggles(request);
   }
 
-  private initFormData(request: EditDraftRequest): void {
+  private initFormData(request: T): void {
     this.form.patchValue({
       subject: request.subject,
       reviewType: request.reviewType,
-      reviewTypeOther: request.reviewTypeOther,
-      vendor: request.vendor,
+      reviewTypeOther: request.reviewTypeOther || '',
+      vendor: request.vendor || '',
       transactionTypeId: request.transactionType?.id || null,
-      amountRange: request.amountBracket,
+      amountRange: request.amountBracket || '',
       funds: request.funds,
       comment: {
         text: request.comment?.comment || '',
@@ -304,7 +326,7 @@ export class CreateRequest implements OnInit {
     });
   }
 
-  private initToggles(request: EditDraftRequest): void {
+  private initToggles(request: T): void {
     if (request.preapproverManager) this.includeDirectManager.set(true);
     if (request.preapproverSponsor) this.includeSponsor.set(true);
   }
