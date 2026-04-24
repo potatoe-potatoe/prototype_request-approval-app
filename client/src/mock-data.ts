@@ -1,5 +1,5 @@
 // TODO: Remove this file once endpoint or mock server is established
-import { AmountOption, ApprovalRequest, DraftRequest, RequestStatus, ReviewType } from "./shared/types/request-type";
+import { AmountOption, ApprovalRequest, EditDraftRequest, RequestStatus, ReviewType } from "./shared/types/request-type";
 import { ApprovalComment } from "./shared/types/approval-type";
 
 export const mockRequests: ApprovalRequest[] = [
@@ -1355,7 +1355,7 @@ export const mockApprovers = [
   { id: 9, name: 'Dalisay, Cardo' },
 ];
 
-export const mockDraftRequest: DraftRequest = {
+export const mockEditDraftRequest: EditDraftRequest = {
   id: 'f3a1c2d4-e5b6-7890-abcd-ef1234567890',
   subject: 'Office Chairs Procurement — Q3',
   vendor: 'UrbanFurniture PH',
@@ -1375,5 +1375,4 @@ export const mockDraftRequest: DraftRequest = {
       { label: 'Product Catalog', url: 'https://www.google.com' },
     ],
   } as ApprovalComment,
-  createdOn: '2026-04-24',
 };

@@ -17,6 +17,9 @@
       <div class="flex gap-2 shrink-0">
         <button class="btn btn-outline" (click)="goBack()">Cancel</button>
         <button class="btn btn-primary" (click)="saveDraft()" [disabled]="!form.valid">Save Draft</button>
+        @if (isEditMode) {
+          <button class="btn btn-success" (click)="submitForApproval()" [disabled]="!form.valid">Submit for Approval</button>
+        }
       </div>
     </div>
   </div>

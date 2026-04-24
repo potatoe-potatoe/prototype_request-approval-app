@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe, Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { amountOptions, DraftRequest, Fund, ReviewType, reviewTypes, TransactionType } from '../../../shared/types/request-type';
-import { mockApprovalMatrix, mockApprovers, mockDraftRequest, mockTransactionTypes } from '../../../mock-data';
+import { amountOptions, EditDraftRequest, Fund, ReviewType, reviewTypes, TransactionType } from '../../../shared/types/request-type';
+import { mockApprovalMatrix, mockApprovers, mockEditDraftRequest, mockTransactionTypes } from '../../../mock-data';
 import { CommentEditor } from '../../../shared/components/comment-editor/comment-editor';
 import { ApprovalReference, ApprovalStep } from '../../../shared/types/approval-type';
 import { SearchableSelect } from '../../../core/components/searchable-select/searchable-select';
@@ -58,7 +58,7 @@ export class CreateRequest implements OnInit {
   protected includeSponsor = signal(false);
 
   protected mode = signal<InputMode>(InputMode.Create);
-  protected request = signal<DraftRequest | null>(null);
+  protected request = signal<EditDraftRequest | null>(null);
 
   ngOnInit(): void {
     const id = this.router.snapshot.paramMap.get('id');
@@ -87,7 +87,14 @@ export class CreateRequest implements OnInit {
 
   // TODO: Update logic for saving
   protected saveDraft(): void {
-    console.log(this.form.value);
+    const json = JSON.stringify(this.form.value, null, 2);
+    console.log(`Save Draft :: ${json}`);
+  }
+
+  // TODO: Update logic for submitting
+  protected submitForApproval(): void {
+    const json = JSON.stringify(this.form.value, null, 2);
+    console.log(`Submit for Approval :: ${json}`);
   }
 
   /**
@@ -253,6 +260,10 @@ export class CreateRequest implements OnInit {
   // ----------------------------------------
   //  Mode: Edit
   // ----------------------------------------
+  get isEditMode(): boolean {
+    return this.mode() === InputMode.Edit;
+  }
+
   private setEditMode(id: string | null): void {
     if (!id) return;
     this.mode.set(InputMode.Edit);
@@ -268,12 +279,12 @@ export class CreateRequest implements OnInit {
     //     set toggles
     //   }
     // });
-    this.request.set(mockDraftRequest);
-    this.initFormData(mockDraftRequest);
-    this.initToggles(mockDraftRequest);
+    this.request.set(mockEditDraftRequest);
+    this.initFormData(mockEditDraftRequest);
+    this.initToggles(mockEditDraftRequest);
   }
 
-  private initFormData(request: DraftRequest): void {
+  private initFormData(request: EditDraftRequest): void {
     this.form.patchValue({
       subject: request.subject,
       reviewType: request.reviewType,
@@ -293,7 +304,7 @@ export class CreateRequest implements OnInit {
     });
   }
 
-  private initToggles(request: DraftRequest): void {
+  private initToggles(request: EditDraftRequest): void {
     if (request.preapproverManager) this.includeDirectManager.set(true);
     if (request.preapproverSponsor) this.includeSponsor.set(true);
   }

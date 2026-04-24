@@ -3,20 +3,44 @@ import { ApprovalComment, Approver } from "./approval-type";
 // ----------------------------------------
 //  Interfaces
 // ----------------------------------------
-export interface DraftRequest {
-  id: string; // publicId
+interface BaseEditRequest {
+  id: string; // publicId UUID v4
   subject: string;
-  vendor?: string;
   reviewType: ReviewType;
   reviewTypeOther?: string;
   funds: SelectedFund[];
-  transactionType?: SelectedTransactionType;
-  amountBracket?: AmountOption;
   preapproverManager?: Approver;
   preapproverSponsor?: Approver;
   comment?: ApprovalComment;
-  createdOn: string;
 }
+
+export interface EditDraftRequest extends BaseEditRequest {
+  vendor?: string;
+  transactionType?: SelectedTransactionType;
+  amountBracket?: AmountOption;
+}
+
+export interface EditSubmittedRequest extends BaseEditRequest {
+  vendor: string;
+  transactionType: SelectedTransactionType;
+  amountBracket: AmountOption;
+}
+
+// export interface DraftRequest {
+//   id: string; // publicId
+//   subject: string;
+//   vendor?: string;
+//   reviewType: ReviewType;
+//   reviewTypeOther?: string;
+//   funds: SelectedFund[];
+//   transactionType?: SelectedTransactionType;
+//   amountBracket?: AmountOption;
+//   preapproverManager?: Approver;
+//   preapproverSponsor?: Approver;
+//   comment?: ApprovalComment;
+//   createdAt: string;
+//   updatedAt?: string;
+// }
 
 export interface SelectedTransactionType {
   id: number;
@@ -30,6 +54,32 @@ export interface SelectedFund {
 }
 
 // TODO: ALl those interfaces up there -- Check if they can be merged with their counterparts below.
+
+// export interface SubmittedRequest {
+//   id: string; // publicId
+//   status: RequestStatus;
+//   controlNumber: string;
+//   subject: string;
+//   vendor: string;
+//   reviewType: ReviewType;
+//   reviewTypeOther?: string;
+//   funds: SelectedFund[];
+//   transactionType: string;
+//   amountBracket: AmountOption;
+//   createdAt: string;
+//   updatedAt: string;
+//   submittedAt: string;
+//   completedAt?: string;
+//   cancelledAt?: string;
+//   rejectedAt?: string;
+// }
+
+// TODO: ALl those interfaces up there -- Check if they can be merged with their counterparts below.
+
+// TODO: Table view should have minimal data
+// BasePreviewRequest
+// PreviewDraftRequest
+// PreviewSubmittedRequest
 
 export interface ApprovalRequest {
   id: string;
